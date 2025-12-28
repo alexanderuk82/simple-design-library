@@ -1754,6 +1754,14 @@ input {
   padding: var(--space-5xl) 0;
 }
 
+/* Extended height on desktop for scroll-triggered tabs */
+@media (min-width: 1024px) {
+  .code-section {
+    min-height: 200vh;
+    padding-bottom: 60vh;
+  }
+}
+
 .code-section__layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -1805,6 +1813,45 @@ input {
   background: var(--bg-elevated);
   color: var(--fg);
   box-shadow: var(--shadow-sm);
+}
+
+/* Scroll Progress Hint - Desktop only */
+.code-scroll-hint {
+  display: none;
+  margin-top: var(--space-xl);
+  gap: var(--space-sm);
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .code-scroll-hint {
+    display: flex;
+  }
+}
+
+.code-scroll-hint__text {
+  font-size: 0.8rem;
+  color: var(--fg-subtle);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-scroll-hint__progress {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.code-scroll-hint__bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: var(--radius-full);
+  transform-origin: left;
+  transform: scaleX(0);
 }
 
 .code-section__preview {

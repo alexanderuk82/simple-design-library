@@ -235,14 +235,16 @@ async function copyToClipboard(text, button) {
 }
 
 /* ========================================
-   Code Preview Tabs
+   Code Preview Tabs with Scroll-Triggered Switching
    ======================================== */
 function initCodeTabs() {
   const tabs = document.querySelectorAll('.code-tab');
   const codeContent = document.getElementById('codeContent');
   const filename = document.getElementById('codeFilename');
+  const codeSection = document.querySelector('.code-section');
+  const scrollBar = document.getElementById('codeScrollBar');
 
-  if (!tabs.length || !codeContent) return;
+  if (!tabs.length || !codeContent || !codeSection) return;
 
   const codeExamples = {
     react: {
@@ -263,61 +265,136 @@ function initCodeTabs() {
   )
 }`
     },
-    vue: {
-      filename: 'App.vue',
-      code: `<span class="token-tag">&lt;template&gt;</span>
-  <span class="token-tag">&lt;SdsCard&gt;</span>
-    <span class="token-tag">&lt;SdsCardHeader&gt;</span>
-      <span class="token-tag">&lt;h2&gt;</span>Sign Up<span class="token-tag">&lt;/h2&gt;</span>
-    <span class="token-tag">&lt;/SdsCardHeader&gt;</span>
-    <span class="token-tag">&lt;SdsCardBody&gt;</span>
-      <span class="token-tag">&lt;SdsInput</span> <span class="token-attr">label</span>=<span class="token-string">"Email"</span> <span class="token-tag">/&gt;</span>
-      <span class="token-tag">&lt;SdsButton&gt;</span>Continue<span class="token-tag">&lt;/SdsButton&gt;</span>
-    <span class="token-tag">&lt;/SdsCardBody&gt;</span>
-  <span class="token-tag">&lt;/SdsCard&gt;</span>
-<span class="token-tag">&lt;/template&gt;</span>`
-    },
     vanilla: {
       filename: 'index.html',
-      code: `<span class="token-comment">&lt;!-- Import CSS --&gt;</span>
-<span class="token-tag">&lt;link</span> <span class="token-attr">rel</span>=<span class="token-string">"stylesheet"</span>
-      <span class="token-attr">href</span>=<span class="token-string">"simple-ds.css"</span><span class="token-tag">&gt;</span>
+      code: `<span class="token-comment">&lt;!-- Import Simple DS CSS --&gt;</span>
+<span class="token-tag">&lt;link</span> <span class="token-attr">rel</span>=<span class="token-string">"stylesheet"</span> <span class="token-attr">href</span>=<span class="token-string">"simple-ds.css"</span><span class="token-tag">&gt;</span>
 
 <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card"</span><span class="token-tag">&gt;</span>
   <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card-header"</span><span class="token-tag">&gt;</span>
     <span class="token-tag">&lt;h2&gt;</span>Sign Up<span class="token-tag">&lt;/h2&gt;</span>
   <span class="token-tag">&lt;/div&gt;</span>
   <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card-body"</span><span class="token-tag">&gt;</span>
-    <span class="token-tag">&lt;input</span> <span class="token-attr">class</span>=<span class="token-string">"sds-input"</span><span class="token-tag">&gt;</span>
-    <span class="token-tag">&lt;button</span> <span class="token-attr">class</span>=<span class="token-string">"sds-btn"</span><span class="token-tag">&gt;</span>
+    <span class="token-tag">&lt;input</span> <span class="token-attr">class</span>=<span class="token-string">"sds-input"</span> <span class="token-attr">placeholder</span>=<span class="token-string">"Email"</span><span class="token-tag">&gt;</span>
+    <span class="token-tag">&lt;button</span> <span class="token-attr">class</span>=<span class="token-string">"sds-btn sds-btn--primary"</span><span class="token-tag">&gt;</span>
       Continue
     <span class="token-tag">&lt;/button&gt;</span>
   <span class="token-tag">&lt;/div&gt;</span>
 <span class="token-tag">&lt;/div&gt;</span>`
+    },
+    webcomponent: {
+      filename: 'app.js',
+      code: `<span class="token-comment">// Import Web Components</span>
+<span class="token-keyword">import</span> <span class="token-string">'simple-design-system/components'</span>
+
+<span class="token-comment">// Use native custom elements</span>
+<span class="token-keyword">const</span> app = <span class="token-string">\`
+  &lt;sds-card&gt;
+    &lt;sds-card-header&gt;
+      &lt;h2&gt;Sign Up&lt;/h2&gt;
+    &lt;/sds-card-header&gt;
+    &lt;sds-card-body&gt;
+      &lt;sds-input label="Email"&gt;&lt;/sds-input&gt;
+      &lt;sds-button variant="primary"&gt;
+        Continue
+      &lt;/sds-button&gt;
+    &lt;/sds-card-body&gt;
+  &lt;/sds-card&gt;
+\`</span>
+
+document.body.innerHTML = app`
     }
   };
 
+  const tabOrder = ['react', 'vanilla', 'webcomponent'];
+  let currentTabIndex = 0;
+  let isAnimating = false;
+
+  // Function to switch tabs with animation
+  function switchToTab(tabType, animate = true) {
+    const example = codeExamples[tabType];
+    if (!example || isAnimating) return;
+
+    // Update tab UI
+    tabs.forEach(t => t.classList.remove('code-tab--active'));
+    const activeTab = document.querySelector(`.code-tab[data-tab="${tabType}"]`);
+    if (activeTab) activeTab.classList.add('code-tab--active');
+
+    if (animate) {
+      isAnimating = true;
+      gsap.to(codeContent, {
+        opacity: 0,
+        y: -10,
+        duration: 0.2,
+        onComplete: () => {
+          codeContent.innerHTML = `<code>${example.code}</code>`;
+          if (filename) filename.textContent = example.filename;
+          gsap.fromTo(codeContent,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.3, onComplete: () => { isAnimating = false; } }
+          );
+        }
+      });
+    } else {
+      codeContent.innerHTML = `<code>${example.code}</code>`;
+      if (filename) filename.textContent = example.filename;
+    }
+  }
+
+  // Click handlers for manual tab switching
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('code-tab--active'));
-      tab.classList.add('code-tab--active');
-
       const tabType = tab.dataset.tab;
-      const example = codeExamples[tabType];
-
-      if (example && codeContent) {
-        gsap.to(codeContent, {
-          opacity: 0,
-          duration: 0.15,
-          onComplete: () => {
-            codeContent.innerHTML = `<code>${example.code}</code>`;
-            if (filename) filename.textContent = example.filename;
-            gsap.to(codeContent, { opacity: 1, duration: 0.2 });
-          }
-        });
-      }
+      currentTabIndex = tabOrder.indexOf(tabType);
+      switchToTab(tabType);
     });
   });
+
+  // Only setup scroll-triggered tabs on desktop
+  if (typeof ScrollTrigger !== 'undefined' && window.innerWidth >= 1024) {
+    // Create scroll-triggered tab switching
+    ScrollTrigger.create({
+      trigger: codeSection,
+      start: 'top 20%',
+      end: 'bottom 80%',
+      scrub: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+
+        // Update scroll bar
+        if (scrollBar) {
+          gsap.set(scrollBar, { scaleX: progress });
+        }
+
+        // Determine which tab should be active based on scroll progress
+        // 0-33%: React, 33-66%: Vanilla, 66-100%: Web Component
+        let newIndex;
+        if (progress < 0.33) {
+          newIndex = 0;
+        } else if (progress < 0.66) {
+          newIndex = 1;
+        } else {
+          newIndex = 2;
+        }
+
+        // Switch tab if index changed
+        if (newIndex !== currentTabIndex && !isAnimating) {
+          currentTabIndex = newIndex;
+          switchToTab(tabOrder[newIndex]);
+        }
+      }
+    });
+
+    // Pin the code section info for sticky effect
+    ScrollTrigger.create({
+      trigger: '.code-section__info',
+      start: 'top 100px',
+      endTrigger: '.code-section',
+      end: 'bottom 80%',
+      pin: true,
+      pinSpacing: false
+    });
+  }
 }
 
 /* ========================================
