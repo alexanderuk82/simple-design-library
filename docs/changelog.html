@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple Design System - Changelog. Stay up to date with the latest improvements and features.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <title>Changelog - Simple Design System</title>
+
+  <style>
+    .changelog-page {
+      padding-top: calc(64px + var(--spacing-3xl));
+      padding-bottom: var(--spacing-4xl);
+      min-height: 100vh;
+    }
+
+    .changelog-page__header {
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .changelog-page__title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .changelog-page__description {
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+      max-width: 600px;
+    }
+
+    .changelog-timeline {
+      position: relative;
+      max-width: 800px;
+    }
+
+    .changelog-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .changelog-entry {
+      position: relative;
+      padding-left: var(--spacing-2xl);
+      padding-bottom: var(--spacing-3xl);
+    }
+
+    .changelog-entry:last-child {
+      padding-bottom: 0;
+    }
+
+    .changelog-entry::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 2px solid var(--background);
+    }
+
+    .changelog-entry__header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .changelog-entry__version {
+      display: inline-flex;
+      padding: var(--spacing-xs) var(--spacing-md);
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+    }
+
+    .changelog-entry__date {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .changelog-entry__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .changelog-entry__content {
+      color: var(--muted-foreground);
+    }
+
+    .changelog-entry__list {
+      list-style: none;
+      padding: 0;
+      margin: var(--spacing-lg) 0 0;
+    }
+
+    .changelog-entry__list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) 0;
+    }
+
+    .changelog-entry__list-item::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      margin-top: 8px;
+      background: var(--brand-green);
+      border-radius: 50%;
+    }
+
+    .changelog-entry__tag {
+      display: inline-flex;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      margin-right: var(--spacing-sm);
+    }
+
+    .changelog-entry__tag--new {
+      background: color-mix(in oklch, var(--brand-green) 15%, transparent);
+      color: var(--brand-green);
+    }
+
+    .changelog-entry__tag--improved {
+      background: color-mix(in oklch, var(--brand-blue) 15%, transparent);
+      color: var(--brand-blue);
+    }
+
+    .changelog-entry__tag--fixed {
+      background: color-mix(in oklch, var(--brand-purple) 15%, transparent);
+      color: var(--brand-purple);
+    }
+
+    .changelog-entry__tag--breaking {
+      background: color-mix(in oklch, var(--brand-red) 15%, transparent);
+      color: var(--brand-red);
+    }
+  </style>
+</head>
+<body>
+  <!-- ========================================
+       HEADER
+       ======================================== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="header__logo">
+        <img src="assets/images/logo-icon.svg" alt="" class="header__logo-icon">
+        <span class="header__logo-text">Simple DS</span>
+      </a>
+
+      <nav class="header__nav" aria-label="Main navigation">
+        <a href="/#features" class="header__nav-link">Features</a>
+        <a href="/docs" class="header__nav-link">Docs</a>
+        <a href="/components" class="header__nav-link">Components</a>
+        <a href="/changelog.html" class="header__nav-link" style="color: var(--foreground);">Changelog</a>
+        <a href="https://github.com/alexanderuk82/simple-design-library" class="header__nav-link" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="theme-toggle__icon theme-toggle__sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <a href="https://github.com/alexanderuk82/simple-design-library" class="btn btn--secondary" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          Star
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="changelog-page">
+    <div class="container">
+      <div class="changelog-page__header">
+        <h1 class="changelog-page__title">Changelog</h1>
+        <p class="changelog-page__description">
+          All notable changes to Simple Design System will be documented on this page.
+          We follow semantic versioning.
+        </p>
+      </div>
+
+      <div class="changelog-timeline">
+        <!-- v0.1.0 -->
+        <article class="changelog-entry">
+          <div class="changelog-entry__header">
+            <span class="changelog-entry__version">v0.1.0</span>
+            <time class="changelog-entry__date">December 28, 2024</time>
+          </div>
+          <h2 class="changelog-entry__title">Initial Beta Release</h2>
+          <p class="changelog-entry__content">
+            The first public beta of Simple Design System. This release includes the foundation
+            of the design system with core tokens, CSS variables, and the documentation website.
+          </p>
+          <ul class="changelog-entry__list">
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              Design tokens system with color primitives and semantic colors
+            </li>
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              Light and Dark mode support with OKLCH color space
+            </li>
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              Typography scale with responsive sizing
+            </li>
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              Spacing and size tokens
+            </li>
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              Landing page with GSAP animations
+            </li>
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              GitHub Pages deployment with auto-deploy
+            </li>
+            <li class="changelog-entry__list-item">
+              <span class="changelog-entry__tag changelog-entry__tag--new">New</span>
+              Changelog page
+            </li>
+          </ul>
+        </article>
+
+        <!-- Future releases will be added here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a href="/" class="footer__logo">
+            <img src="assets/images/logo-icon.svg" alt="" class="footer__logo-icon">
+            <span class="footer__logo-text">Simple DS</span>
+          </a>
+          <p class="footer__description">
+            A modern, accessible UI component library for building beautiful web applications.
+          </p>
+        </div>
+
+        <nav class="footer__nav">
+          <h4 class="footer__nav-title">Documentation</h4>
+          <ul class="footer__nav-list">
+            <li><a href="/docs/getting-started" class="footer__nav-link">Getting Started</a></li>
+            <li><a href="/docs/installation" class="footer__nav-link">Installation</a></li>
+            <li><a href="/docs/theming" class="footer__nav-link">Theming</a></li>
+            <li><a href="/docs/tokens" class="footer__nav-link">Design Tokens</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__nav">
+          <h4 class="footer__nav-title">Components</h4>
+          <ul class="footer__nav-list">
+            <li><a href="/components/button" class="footer__nav-link">Button</a></li>
+            <li><a href="/components/input" class="footer__nav-link">Input</a></li>
+            <li><a href="/components/card" class="footer__nav-link">Card</a></li>
+            <li><a href="/components/modal" class="footer__nav-link">Modal</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__nav">
+          <h4 class="footer__nav-title">Community</h4>
+          <ul class="footer__nav-list">
+            <li><a href="https://github.com/alexanderuk82/simple-design-library" class="footer__nav-link" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://discord.com" class="footer__nav-link" target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://twitter.com" class="footer__nav-link" target="_blank" rel="noopener">Twitter</a></li>
+            <li><a href="/changelog.html" class="footer__nav-link">Changelog</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2024 Simple Design System. MIT License.</p>
+        <p>Made with care by <a href="https://github.com/alexanderuk82" target="_blank" rel="noopener" style="color: var(--primary);">@alexanderuk82</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      html.classList.add('dark');
+    }
+
+    toggle?.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
