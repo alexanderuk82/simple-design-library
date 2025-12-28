@@ -3,184 +3,466 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Simple Design System - A modern, accessible UI component library for building beautiful web applications. React, Vanilla JS, and Web Components.">
-  <meta name="keywords" content="UI library, design system, components, React, CSS, web components, accessible">
-  <meta name="author" content="Simple Design System">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Simple Design System">
-  <meta property="og:description" content="Build stunning interfaces at lightning speed">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://alexanderuk82.github.io/simple-design-library/">
+  <meta name="description" content="Simple Design System - The component library that doesn't compromise. Beautiful, accessible, blazingly fast.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+
+  <!-- Fonts - Distinctive choices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
 
-  <title>Simple Design System - Build beautiful interfaces with speed</title>
+  <title>Simple DS — Design System</title>
 </head>
 <body>
+  <!-- Cursor follower -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay"></div>
+
   <!-- ========================================
        HEADER
        ======================================== -->
-  <header class="header">
-    <div class="container header__inner">
+  <header class="header" id="header">
+    <div class="header__inner">
       <a href="/" class="header__logo">
-        <img src="assets/images/logo-icon.svg" alt="" class="header__logo-icon">
-        <span class="header__logo-text">Simple DS</span>
+        <img src="assets/images/logo-icon.svg" alt="Simple DS" class="header__logo-icon">
+        <span class="header__logo-text">Simple<span class="text-accent">DS</span></span>
       </a>
 
-      <nav class="header__nav" aria-label="Main navigation">
-        <a href="#features" class="header__nav-link">Features</a>
-        <a href="/docs" class="header__nav-link">Docs</a>
-        <a href="/components" class="header__nav-link">Components</a>
-        <a href="/changelog" class="header__nav-link">Changelog</a>
-        <a href="https://github.com/alexanderuk82/simple-design-library" class="header__nav-link" target="_blank" rel="noopener">GitHub</a>
+      <nav class="header__nav" id="mainNav">
+        <a href="#components" class="header__nav-link" data-hover="Components">Components</a>
+        <a href="#features" class="header__nav-link" data-hover="Features">Features</a>
+        <a href="#code" class="header__nav-link" data-hover="Code">Code</a>
+        <a href="https://github.com/alexanderuk82/simple-design-library" class="header__nav-link" target="_blank" data-hover="GitHub">GitHub</a>
       </nav>
 
       <div class="header__actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <svg class="theme-toggle__icon theme-toggle__sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2"></path>
-            <path d="M12 20v2"></path>
-            <path d="m4.93 4.93 1.41 1.41"></path>
-            <path d="m17.66 17.66 1.41 1.41"></path>
-            <path d="M2 12h2"></path>
-            <path d="M20 12h2"></path>
-            <path d="m6.34 17.66-1.41 1.41"></path>
-            <path d="m19.07 4.93-1.41 1.41"></path>
-          </svg>
-          <svg class="theme-toggle__icon theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-          </svg>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle__icon"></span>
         </button>
 
-        <a href="https://github.com/alexanderuk82/simple-design-library" class="btn btn--secondary" target="_blank" rel="noopener">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        <a href="#get-started" class="btn btn--primary btn--glow header__cta-desktop">
+          <span>Get Started</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 13L13 1M13 1H1M13 1V13" stroke="currentColor" stroke-width="2"/>
           </svg>
-          Star
         </a>
 
-        <button class="mobile-menu__toggle" id="mobileMenuToggle" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" x2="20" y1="12" y2="12"></line>
-            <line x1="4" x2="20" y1="6" y2="6"></line>
-            <line x1="4" x2="20" y1="18" y2="18"></line>
-          </svg>
+        <!-- Innovative Menu Toggle - Text Based -->
+        <button class="menu-trigger" id="menuTrigger" type="button" aria-label="Open menu" aria-expanded="false">
+          <span class="menu-trigger__text">
+            <span class="menu-trigger__word menu-trigger__word--menu">Menu</span>
+            <span class="menu-trigger__word menu-trigger__word--close">Close</span>
+          </span>
+          <span class="menu-trigger__indicator">
+            <span class="menu-trigger__dot"></span>
+            <span class="menu-trigger__dot"></span>
+          </span>
         </button>
       </div>
     </div>
   </header>
+
+  <!-- Fullscreen Navigation Overlay -->
+  <div class="nav-overlay" id="navOverlay">
+    <div class="nav-overlay__bg"></div>
+
+    <div class="nav-overlay__content">
+      <div class="nav-overlay__left">
+        <nav class="nav-overlay__menu">
+          <a href="#components" class="nav-overlay__link" data-index="01">
+            <span class="nav-overlay__link-text">Components</span>
+            <span class="nav-overlay__link-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="#features" class="nav-overlay__link" data-index="02">
+            <span class="nav-overlay__link-text">Features</span>
+            <span class="nav-overlay__link-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="#code" class="nav-overlay__link" data-index="03">
+            <span class="nav-overlay__link-text">Code</span>
+            <span class="nav-overlay__link-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="https://github.com/alexanderuk82/simple-design-library" class="nav-overlay__link" data-index="04" target="_blank" rel="noopener">
+            <span class="nav-overlay__link-text">GitHub</span>
+            <span class="nav-overlay__link-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+        </nav>
+
+        <div class="nav-overlay__cta">
+          <a href="#get-started" class="btn btn--primary btn--large btn--full nav-overlay__btn">
+            <span>Get Started</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-overlay__right">
+        <div class="nav-overlay__info">
+          <div class="nav-overlay__info-block">
+            <span class="nav-overlay__info-label">Version</span>
+            <span class="nav-overlay__info-value">0.1.0 Beta</span>
+          </div>
+          <div class="nav-overlay__info-block">
+            <span class="nav-overlay__info-label">Components</span>
+            <span class="nav-overlay__info-value">40+</span>
+          </div>
+          <div class="nav-overlay__info-block">
+            <span class="nav-overlay__info-label">License</span>
+            <span class="nav-overlay__info-value">MIT</span>
+          </div>
+        </div>
+
+        <div class="nav-overlay__visual">
+          <div class="nav-overlay__shape nav-overlay__shape--1"></div>
+          <div class="nav-overlay__shape nav-overlay__shape--2"></div>
+          <div class="nav-overlay__shape nav-overlay__shape--3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-overlay__footer">
+      <div class="nav-overlay__social">
+        <a href="https://github.com/alexanderuk82/simple-design-library" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://discord.com" target="_blank" rel="noopener" aria-label="Discord">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+          </svg>
+        </a>
+      </div>
+      <p class="nav-overlay__copyright">&copy; 2024 Simple DS</p>
+    </div>
+  </div>
 
   <main>
     <!-- ========================================
          HERO SECTION
          ======================================== -->
     <section class="hero">
+      <!-- Animated background -->
       <div class="hero__bg">
-        <div class="hero__gradient hero__gradient--1"></div>
-        <div class="hero__gradient hero__gradient--2"></div>
-        <div class="hero__gradient hero__gradient--3"></div>
+        <div class="hero__orb hero__orb--1"></div>
+        <div class="hero__orb hero__orb--2"></div>
+        <div class="hero__orb hero__orb--3"></div>
+        <div class="hero__grid"></div>
       </div>
 
-      <div class="container hero__inner">
-        <div class="hero__content">
-          <div class="hero__badge">
-            <span class="hero__badge-dot"></span>
-            <span>Now in Beta - v0.1.0</span>
-          </div>
+      <div class="hero__content">
+        <div class="hero__badge" data-animate="fade-up">
+          <span class="hero__badge-pulse"></span>
+          <span>v0.1.0 Beta</span>
+          <span class="hero__badge-divider"></span>
+          <span>Now Available</span>
+        </div>
 
-          <h1 class="hero__title">
-            Build stunning interfaces<br>
-            <span class="gradient-text">at lightning speed</span>
-          </h1>
+        <h1 class="hero__title">
+          <span class="hero__title-line" data-animate="split">The design system</span>
+          <span class="hero__title-line hero__title-line--accent" data-animate="split">that doesn't</span>
+          <span class="hero__title-line" data-animate="split">
+            <em class="hero__title-italic">compromise</em>
+          </span>
+        </h1>
 
-          <p class="hero__subtitle">
-            A modern, accessible component library with design tokens, ready-to-use components, and seamless framework integration. From design to production in minutes.
-          </p>
+        <p class="hero__subtitle" data-animate="fade-up">
+          40+ meticulously crafted components. Pixel-perfect design tokens.<br class="hide-mobile">
+          React, Vue, Vanilla — your choice. Zero compromises.
+        </p>
 
-          <div class="hero__cta">
-            <a href="/docs/getting-started" class="btn btn--primary">
-              Get Started
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </a>
-            <a href="/components" class="btn btn--secondary">
-              Browse Components
-            </a>
-          </div>
-
+        <div class="hero__cta" data-animate="fade-up">
           <div class="hero__install">
-            <span class="hero__install-prefix">$</span>
-            <code class="hero__install-command">npm install simple-design-system</code>
-            <button class="hero__install-copy" aria-label="Copy to clipboard" data-copy="npm install simple-design-system">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
-                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+            <span class="hero__install-icon">$</span>
+            <code class="hero__install-code">npm i simple-design-system</code>
+            <button class="hero__install-copy" id="copyInstall" aria-label="Copy command">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
               </svg>
+              <span class="hero__install-tooltip">Copied!</span>
             </button>
           </div>
-        </div>
 
-        <div class="hero__preview">
-          <div class="hero__preview-window animate-float">
-            <div class="hero__preview-header">
-              <span class="hero__preview-dot hero__preview-dot--red"></span>
-              <span class="hero__preview-dot hero__preview-dot--yellow"></span>
-              <span class="hero__preview-dot hero__preview-dot--green"></span>
-            </div>
-            <div class="hero__preview-content">
-              <div class="preview-card">
-                <div class="preview-card__title">Buttons</div>
-                <div class="preview-buttons">
-                  <button class="preview-btn preview-btn--primary">Primary</button>
-                  <button class="preview-btn preview-btn--secondary">Secondary</button>
-                  <button class="preview-btn preview-btn--outline">Outline</button>
-                  <button class="preview-btn preview-btn--ghost">Ghost</button>
-                </div>
-              </div>
-              <div class="preview-card">
-                <div class="preview-card__title">Inputs</div>
-                <input type="text" placeholder="Enter your email..." style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--background); color: var(--foreground); font-size: 0.875rem;">
-              </div>
-              <div class="preview-card">
-                <div class="preview-card__title">Badges</div>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                  <span style="padding: 0.25rem 0.75rem; background: var(--brand-blue); color: white; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">New</span>
-                  <span style="padding: 0.25rem 0.75rem; background: var(--brand-green); color: white; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">Success</span>
-                  <span style="padding: 0.25rem 0.75rem; background: var(--brand-purple); color: white; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">Beta</span>
-                  <span style="padding: 0.25rem 0.75rem; background: var(--brand-red); color: white; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">Error</span>
-                </div>
-              </div>
+          <div class="hero__buttons">
+            <a href="/docs" class="btn btn--secondary btn--large">
+              <span>Documentation</span>
+            </a>
+            <a href="#components" class="btn btn--ghost btn--large">
+              <span>Explore</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3V13M8 13L13 8M8 13L3 8" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating component cards -->
+      <div class="hero__showcase">
+        <div class="showcase-card showcase-card--1" data-speed="1.2">
+          <div class="showcase-card__header">
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+          </div>
+          <div class="showcase-card__content">
+            <div class="showcase-card__label">Button</div>
+            <div class="showcase-card__buttons">
+              <button class="sc-btn sc-btn--primary">Primary</button>
+              <button class="sc-btn sc-btn--outline">Outline</button>
             </div>
           </div>
         </div>
+
+        <div class="showcase-card showcase-card--2" data-speed="0.8">
+          <div class="showcase-card__header">
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+          </div>
+          <div class="showcase-card__content">
+            <div class="showcase-card__label">Input</div>
+            <input type="text" class="sc-input" placeholder="Enter your email...">
+          </div>
+        </div>
+
+        <div class="showcase-card showcase-card--3" data-speed="1.5">
+          <div class="showcase-card__header">
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+          </div>
+          <div class="showcase-card__content">
+            <div class="showcase-card__label">Toggle</div>
+            <label class="sc-toggle">
+              <input type="checkbox" checked>
+              <span class="sc-toggle__slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="showcase-card showcase-card--4" data-speed="1.0">
+          <div class="showcase-card__header">
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+            <span class="showcase-card__dot"></span>
+          </div>
+          <div class="showcase-card__content">
+            <div class="showcase-card__label">Badge</div>
+            <div class="showcase-card__badges">
+              <span class="sc-badge sc-badge--blue">New</span>
+              <span class="sc-badge sc-badge--green">Active</span>
+              <span class="sc-badge sc-badge--purple">Beta</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="hero__scroll">
+        <div class="hero__scroll-line"></div>
+        <span>Scroll to explore</span>
       </div>
     </section>
 
     <!-- ========================================
-         TRUSTED BY
+         MARQUEE
          ======================================== -->
-    <section class="trusted">
+    <div class="marquee">
+      <div class="marquee__track">
+        <div class="marquee__content">
+          <span>React</span>
+          <span class="marquee__dot"></span>
+          <span>Vue</span>
+          <span class="marquee__dot"></span>
+          <span>Svelte</span>
+          <span class="marquee__dot"></span>
+          <span>Next.js</span>
+          <span class="marquee__dot"></span>
+          <span>Nuxt</span>
+          <span class="marquee__dot"></span>
+          <span>Astro</span>
+          <span class="marquee__dot"></span>
+          <span>Remix</span>
+          <span class="marquee__dot"></span>
+          <span>Vanilla JS</span>
+          <span class="marquee__dot"></span>
+        </div>
+        <div class="marquee__content" aria-hidden="true">
+          <span>React</span>
+          <span class="marquee__dot"></span>
+          <span>Vue</span>
+          <span class="marquee__dot"></span>
+          <span>Svelte</span>
+          <span class="marquee__dot"></span>
+          <span>Next.js</span>
+          <span class="marquee__dot"></span>
+          <span>Nuxt</span>
+          <span class="marquee__dot"></span>
+          <span>Astro</span>
+          <span class="marquee__dot"></span>
+          <span>Remix</span>
+          <span class="marquee__dot"></span>
+          <span>Vanilla JS</span>
+          <span class="marquee__dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         COMPONENTS SHOWCASE
+         ======================================== -->
+    <section class="components" id="components">
       <div class="container">
-        <p class="trusted__title">Built for modern product teams</p>
-        <div class="trusted__logos">
-          <span class="trusted__logo">Vercel</span>
-          <span class="trusted__logo">Stripe</span>
-          <span class="trusted__logo">Linear</span>
-          <span class="trusted__logo">Notion</span>
-          <span class="trusted__logo">Figma</span>
-          <span class="trusted__logo">Framer</span>
+        <div class="section-header">
+          <span class="section-header__tag">01 / Components</span>
+          <h2 class="section-header__title">
+            <span class="text-gradient">40+</span> components,<br>
+            infinite possibilities
+          </h2>
+          <p class="section-header__desc">
+            From buttons to complex data tables. Every component is designed
+            with accessibility, customization, and developer experience in mind.
+          </p>
+        </div>
+
+        <div class="components__grid">
+          <div class="component-card component-card--large">
+            <div class="component-card__preview">
+              <div class="preview-buttons-grid">
+                <button class="p-btn p-btn--solid">Solid</button>
+                <button class="p-btn p-btn--outline">Outline</button>
+                <button class="p-btn p-btn--ghost">Ghost</button>
+                <button class="p-btn p-btn--link">Link</button>
+                <button class="p-btn p-btn--solid p-btn--sm">Small</button>
+                <button class="p-btn p-btn--solid p-btn--lg">Large</button>
+                <button class="p-btn p-btn--solid p-btn--icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                </button>
+                <button class="p-btn p-btn--solid p-btn--loading">
+                  <span class="p-btn__spinner"></span>
+                  Loading
+                </button>
+              </div>
+            </div>
+            <div class="component-card__info">
+              <h3>Button</h3>
+              <p>8 variants, 4 sizes, icons, loading states, and more.</p>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-card__preview">
+              <div class="preview-inputs">
+                <input type="text" class="p-input" placeholder="Default input">
+                <input type="text" class="p-input p-input--error" placeholder="Error state">
+              </div>
+            </div>
+            <div class="component-card__info">
+              <h3>Input</h3>
+              <p>Text, email, password, search, and more.</p>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-card__preview">
+              <div class="preview-card-demo">
+                <div class="p-card">
+                  <div class="p-card__img"></div>
+                  <div class="p-card__body">
+                    <h4>Card Title</h4>
+                    <p>Card description here.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="component-card__info">
+              <h3>Card</h3>
+              <p>Flexible containers for any content.</p>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-card__preview">
+              <div class="preview-badges">
+                <span class="p-badge">Default</span>
+                <span class="p-badge p-badge--success">Success</span>
+                <span class="p-badge p-badge--warning">Warning</span>
+                <span class="p-badge p-badge--error">Error</span>
+              </div>
+            </div>
+            <div class="component-card__info">
+              <h3>Badge</h3>
+              <p>Status indicators and labels.</p>
+            </div>
+          </div>
+
+          <div class="component-card">
+            <div class="component-card__preview">
+              <div class="preview-toggle">
+                <label class="p-toggle">
+                  <input type="checkbox" checked>
+                  <span class="p-toggle__track"></span>
+                </label>
+                <label class="p-toggle">
+                  <input type="checkbox">
+                  <span class="p-toggle__track"></span>
+                </label>
+              </div>
+            </div>
+            <div class="component-card__info">
+              <h3>Toggle</h3>
+              <p>On/off switches with smooth animations.</p>
+            </div>
+          </div>
+
+          <div class="component-card component-card--cta">
+            <div class="component-card__cta-content">
+              <span class="component-card__cta-icon">+32</span>
+              <h3>More Components</h3>
+              <p>Modal, Dropdown, Tabs, Accordion, Avatar, Tooltip, and more.</p>
+              <a href="/components" class="btn btn--secondary">View All</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -190,229 +472,220 @@
          ======================================== -->
     <section class="features" id="features">
       <div class="container">
-        <div class="section__header">
-          <span class="section__badge">Design System</span>
-          <h2 class="section__title">
-            Build your design system<br>
-            on top of <span class="gradient-text">Simple DS</span>
+        <div class="section-header section-header--center">
+          <span class="section-header__tag">02 / Features</span>
+          <h2 class="section-header__title">
+            Built different.<br>
+            <span class="text-gradient">Built better.</span>
           </h2>
-          <p class="section__description">
-            Spend less time writing UI code and more time building a great experience for your customers.
-          </p>
         </div>
 
         <div class="features__grid">
-          <div class="feature-card">
-            <div class="feature-card__icon">🎨</div>
-            <h3 class="feature-card__title">Design Tokens</h3>
-            <p class="feature-card__description">
-              Semantic color tokens that work seamlessly across light and dark modes. Built with OKLCH for perceptually uniform colors.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-card__icon">🔤</div>
-            <h3 class="feature-card__title">Typography</h3>
-            <p class="feature-card__description">
-              Customizable type scale with responsive sizing. Includes heading, body, and code styles out of the box.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-card__icon">📦</div>
-            <h3 class="feature-card__title">Components</h3>
-            <p class="feature-card__description">
-              40+ production-ready components. Accessible, customizable, and available in React, Vanilla JS, and Web Components.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-card__icon">♿</div>
-            <h3 class="feature-card__title">Accessible</h3>
-            <p class="feature-card__description">
-              WCAG 2.1 AA compliant. Proper ARIA attributes, keyboard navigation, and screen reader support built-in.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-card__icon">🌙</div>
-            <h3 class="feature-card__title">Dark Mode</h3>
-            <p class="feature-card__description">
-              First-class dark mode support. Automatic theme detection with seamless transitions between modes.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-card__icon">⚡</div>
-            <h3 class="feature-card__title">Lightweight</h3>
-            <p class="feature-card__description">
-              Zero dependencies for CSS. Tree-shakeable JavaScript. Only ship what you use.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================
-         STATS
-         ======================================== -->
-    <section class="stats">
-      <div class="container">
-        <div class="stats__header">
-          <h2 class="stats__title">Built for developers<br><span class="gradient-text">By developers</span></h2>
-          <p class="stats__subtitle">From next-gen startups to established enterprises.</p>
-        </div>
-
-        <div class="stats__grid">
-          <div class="stat-card">
-            <div class="stat-card__value" data-count="40">40+</div>
-            <p class="stat-card__label">Components</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__value" data-count="100">100%</div>
-            <p class="stat-card__label">Accessible</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__value" data-count="3">3</div>
-            <p class="stat-card__label">Frameworks</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__value">MIT</div>
-            <p class="stat-card__label">License</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================
-         CODE PREVIEW
-         ======================================== -->
-    <section class="code-preview" id="code">
-      <div class="container">
-        <div class="section__header">
-          <span class="section__badge">Code Examples</span>
-          <h2 class="section__title">Copy, paste, customize</h2>
-          <p class="section__description">
-            Get started in seconds with ready-to-use code for your favorite framework.
-          </p>
-        </div>
-
-        <div class="code-preview__tabs">
-          <button class="code-preview__tab code-preview__tab--active" data-tab="react">React</button>
-          <button class="code-preview__tab" data-tab="vanilla">Vanilla</button>
-          <button class="code-preview__tab" data-tab="webcomponent">Web Component</button>
-        </div>
-
-        <div class="code-preview__window">
-          <div class="code-preview__header">
-            <div class="code-preview__dots">
-              <span class="code-preview__dot" style="background: #FF5F56;"></span>
-              <span class="code-preview__dot" style="background: #FFBD2E;"></span>
-              <span class="code-preview__dot" style="background: #27CA40;"></span>
+          <div class="feature-block">
+            <div class="feature-block__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 8v8l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
             </div>
-            <span class="code-preview__filename">Button.tsx</span>
-            <button class="code-preview__copy">Copy</button>
+            <h3>Lightning Fast</h3>
+            <p>Zero dependencies. Tree-shakeable. Only ship what you use. Average bundle: ~3kb gzipped.</p>
+            <div class="feature-block__stat">
+              <span class="feature-block__stat-value">3kb</span>
+              <span class="feature-block__stat-label">avg. size</span>
+            </div>
           </div>
-          <div class="code-preview__content">
-            <pre id="codeContent"><span class="token-keyword">import</span> { Button } <span class="token-keyword">from</span> <span class="token-string">'simple-design-system'</span>
+
+          <div class="feature-block">
+            <div class="feature-block__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 16l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Accessible</h3>
+            <p>WCAG 2.1 AA compliant. Keyboard navigation. Screen reader tested. No compromises.</p>
+            <div class="feature-block__stat">
+              <span class="feature-block__stat-value">100%</span>
+              <span class="feature-block__stat-label">a11y score</span>
+            </div>
+          </div>
+
+          <div class="feature-block">
+            <div class="feature-block__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="6" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 2v4M16 26v4M2 16h4M26 16h4M5.86 5.86l2.83 2.83M23.31 23.31l2.83 2.83M5.86 26.14l2.83-2.83M23.31 8.69l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Dark Mode</h3>
+            <p>First-class dark mode. Automatic detection. Seamless transitions. Beautiful in any light.</p>
+            <div class="feature-block__stat">
+              <span class="feature-block__stat-value">2</span>
+              <span class="feature-block__stat-label">themes</span>
+            </div>
+          </div>
+
+          <div class="feature-block">
+            <div class="feature-block__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M16 2l2.47 7.6h7.99l-6.47 4.7 2.47 7.6L16 17.2l-6.46 4.7 2.47-7.6-6.47-4.7h7.99L16 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Design Tokens</h3>
+            <p>Semantic tokens. CSS variables. OKLCH colors. Consistent across every component.</p>
+            <div class="feature-block__stat">
+              <span class="feature-block__stat-value">200+</span>
+              <span class="feature-block__stat-label">tokens</span>
+            </div>
+          </div>
+
+          <div class="feature-block">
+            <div class="feature-block__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <rect x="2" y="8" width="28" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 14h4M8 18h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>TypeScript</h3>
+            <p>Full TypeScript support. Autocomplete. Type safety. Better DX, fewer bugs.</p>
+            <div class="feature-block__stat">
+              <span class="feature-block__stat-value">100%</span>
+              <span class="feature-block__stat-label">typed</span>
+            </div>
+          </div>
+
+          <div class="feature-block">
+            <div class="feature-block__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M4 16c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M28 16c0 6.627-5.373 12-12 12S4 22.627 4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <h3>Framework Agnostic</h3>
+            <p>React. Vue. Svelte. Vanilla JS. Web Components. Use your stack, we adapt.</p>
+            <div class="feature-block__stat">
+              <span class="feature-block__stat-value">6+</span>
+              <span class="feature-block__stat-label">frameworks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         CODE SECTION
+         ======================================== -->
+    <section class="code-section" id="code">
+      <div class="container">
+        <div class="code-section__layout">
+          <div class="code-section__info">
+            <span class="section-header__tag">03 / Code</span>
+            <h2 class="section-header__title">
+              Copy. Paste.<br>
+              <span class="text-gradient">Ship.</span>
+            </h2>
+            <p class="code-section__desc">
+              Import what you need. Customize with props or CSS variables.
+              That's it. No complex setup, no configuration nightmares.
+            </p>
+
+            <div class="code-section__tabs">
+              <button class="code-tab code-tab--active" data-tab="react">React</button>
+              <button class="code-tab" data-tab="vue">Vue</button>
+              <button class="code-tab" data-tab="vanilla">Vanilla</button>
+            </div>
+          </div>
+
+          <div class="code-section__preview">
+            <div class="code-window">
+              <div class="code-window__header">
+                <div class="code-window__dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="code-window__filename" id="codeFilename">App.tsx</span>
+                <button class="code-window__copy" id="copyCode">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="code-window__content" id="codeContent"><code><span class="token-keyword">import</span> { Button, Input, Card } <span class="token-keyword">from</span> <span class="token-string">'simple-design-system'</span>
 
 <span class="token-keyword">export default function</span> <span class="token-function">App</span>() {
   <span class="token-keyword">return</span> (
-    <span class="token-tag">&lt;div</span> <span class="token-attr">className</span>=<span class="token-value">"flex gap-4"</span><span class="token-tag">&gt;</span>
-      <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-value">"primary"</span><span class="token-tag">&gt;</span>Primary<span class="token-tag">&lt;/Button&gt;</span>
-      <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-value">"secondary"</span><span class="token-tag">&gt;</span>Secondary<span class="token-tag">&lt;/Button&gt;</span>
-      <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-value">"outline"</span><span class="token-tag">&gt;</span>Outline<span class="token-tag">&lt;/Button&gt;</span>
-      <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-value">"ghost"</span><span class="token-tag">&gt;</span>Ghost<span class="token-tag">&lt;/Button&gt;</span>
-    <span class="token-tag">&lt;/div&gt;</span>
+    <span class="token-tag">&lt;Card&gt;</span>
+      <span class="token-tag">&lt;Card.Header&gt;</span>
+        <span class="token-tag">&lt;h2&gt;</span>Sign Up<span class="token-tag">&lt;/h2&gt;</span>
+      <span class="token-tag">&lt;/Card.Header&gt;</span>
+
+      <span class="token-tag">&lt;Card.Body&gt;</span>
+        <span class="token-tag">&lt;Input</span>
+          <span class="token-attr">label</span>=<span class="token-string">"Email"</span>
+          <span class="token-attr">type</span>=<span class="token-string">"email"</span>
+          <span class="token-attr">placeholder</span>=<span class="token-string">"you@example.com"</span>
+        <span class="token-tag">/&gt;</span>
+        <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-string">"primary"</span> <span class="token-attr">fullWidth</span><span class="token-tag">&gt;</span>
+          Continue
+        <span class="token-tag">&lt;/Button&gt;</span>
+      <span class="token-tag">&lt;/Card.Body&gt;</span>
+    <span class="token-tag">&lt;/Card&gt;</span>
   )
-}</pre>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================
-         FRAMEWORKS
-         ======================================== -->
-    <section class="frameworks">
-      <div class="container">
-        <div class="section__header">
-          <h2 class="section__title">Works with your favorite<br><span class="gradient-text">application framework</span></h2>
-          <p class="section__description">
-            Simple DS provides a consistent developer experience for most modern frameworks.
-          </p>
-        </div>
-
-        <div class="frameworks__grid">
-          <div class="framework-icon">
-            <svg class="framework-icon__img" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.572 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/>
-            </svg>
-            <span class="framework-icon__name">Next.js</span>
-          </div>
-
-          <div class="framework-icon">
-            <svg class="framework-icon__img" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M24 1.61h-9.94L12 5.16 9.94 1.61H0l12 20.78L24 1.61zM12 14.08 5.16 2.23h4.43L12 6.41l2.41-4.18h4.43L12 14.08z"/>
-            </svg>
-            <span class="framework-icon__name">Vue</span>
-          </div>
-
-          <div class="framework-icon">
-            <svg class="framework-icon__img" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.041 4.725h.082c2.23 0 4.334.837 5.994 2.355l-1.584 1.726a6.41 6.41 0 0 0-4.41-1.725h-.082a6.413 6.413 0 0 0-4.41 1.725L5.964 7.08a8.477 8.477 0 0 1 5.995-2.355zM7.639 8.963a6.39 6.39 0 0 0-1.725 4.357v.123l-2.357.023v-.146a8.741 8.741 0 0 1 2.357-5.999l1.725 1.642zm4.402 10.312h-.082a8.477 8.477 0 0 1-5.995-2.355l1.584-1.726a6.41 6.41 0 0 0 4.411 1.726h.082a6.41 6.41 0 0 0 4.41-1.726l1.584 1.726a8.477 8.477 0 0 1-5.994 2.355zm4.32-5.832v-.123a6.39 6.39 0 0 0-1.725-4.357l1.724-1.642a8.741 8.741 0 0 1 2.358 5.999v.146l-2.358-.023z"/>
-            </svg>
-            <span class="framework-icon__name">Nuxt</span>
-          </div>
-
-          <div class="framework-icon">
-            <svg class="framework-icon__img" viewBox="0 0 24 24" fill="currentColor">
-              <path d="m12.001 0-12 12 12 12 12-12-12-12zm0 3.11 8.89 8.89-8.89 8.89-8.89-8.89 8.89-8.89z"/>
-            </svg>
-            <span class="framework-icon__name">Remix</span>
-          </div>
-
-          <div class="framework-icon">
-            <svg class="framework-icon__img" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8.358 20.162c-1.186-1.07-1.532-3.316-1.038-4.944.856 1.026 2.043 1.352 3.272 1.535 1.897.283 3.76.177 5.522-.678.202-.098.388-.229.608-.36.166.473.209.95.151 1.437-.14 1.185-.738 2.1-1.688 2.794-.38.277-.782.525-1.175.787-1.205.804-1.531 1.747-1.078 3.119l.044.148a3.158 3.158 0 0 1-1.407-1.188 3.31 3.31 0 0 1-.544-1.815c-.004-.32-.004-.642-.048-.958-.106-.769-.472-1.113-1.161-1.133-.707-.02-1.267.411-1.415 1.09-.012.053-.028.104-.045.165h.002zm-5.961-4.445s3.24-1.575 6.49-1.575l2.451-7.565c.092-.366.36-.614.662-.614.302 0 .57.248.662.614l2.45 7.565c3.85 0 6.491 1.575 6.491 1.575L16.088.727C15.93.285 15.663 0 15.303 0H8.697c-.36 0-.615.285-.784.727l-5.516 14.99z"/>
-            </svg>
-            <span class="framework-icon__name">Astro</span>
-          </div>
-
-          <div class="framework-icon">
-            <svg class="framework-icon__img" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44a23.476 23.476 0 0 0-3.107-.534 23.988 23.988 0 0 0-2.017-2.447c1.592-1.48 3.087-2.292 4.086-2.296zm-9.74.02c.996 0 2.492.807 4.084 2.28a24.135 24.135 0 0 0-2.008 2.44c-1.077.07-2.1.21-3.064.49-.112-.507-.2-1-.25-1.469-.22-1.867.07-3.32.737-3.707a1.1 1.1 0 0 1 .501-.134zM5.25 11.952c.676.236 1.4.437 2.157.602a24.504 24.504 0 0 0 1.064 2.14 24.206 24.206 0 0 0-1.077 2.182c-.77.168-1.493.372-2.166.613-.982-.31-1.78-.738-2.263-1.082a2.343 2.343 0 0 1-.512-.512c-.028-.058-.03-.134-.002-.265.094-.408.376-.917.853-1.47.417-.483.998-.97 1.72-1.433.008-.006.016-.01.025-.014a14.62 14.62 0 0 1 .201-.152v-.609zm13.547.001a15.49 15.49 0 0 1 .187.143c.013.01.024.02.037.03.71.46 1.28.948 1.689 1.42.476.553.76 1.062.85 1.47.026.134.025.21-.005.265a2.3 2.3 0 0 1-.522.515c-.487.348-1.29.78-2.279 1.094-.68-.243-1.41-.447-2.184-.617a23.893 23.893 0 0 0-1.063-2.16c.377-.73.72-1.449 1.025-2.146.763.164 1.49.365 2.164.596l.1-.006v-.604zm-6.77.003c.346 0 .686.02 1.02.056.359.547.703 1.12 1.03 1.72.322.593.617 1.197.886 1.804a22.584 22.584 0 0 1-.87 1.827c-.33.61-.673 1.192-1.032 1.747-.67.077-1.36.116-2.067.116-.7 0-1.39-.04-2.054-.115a22.968 22.968 0 0 1-1.026-1.735 23.66 23.66 0 0 1-.876-1.83c.265-.604.56-1.205.88-1.795a23.03 23.03 0 0 1 1.02-1.73c.66-.074 1.34-.113 2.028-.115a23.635 23.635 0 0 1 1.062.05zm-3.273.653a22.095 22.095 0 0 0-.56 1.12 22.1 22.1 0 0 0-.55-1.112c.368-.04.74-.068 1.11-.08v.072zm4.608-.072c.369.012.74.042 1.107.08l-.543 1.1a22.56 22.56 0 0 0-.564-1.108v-.072zm-5.22.793c-.234.507-.453 1.022-.657 1.547a21.594 21.594 0 0 1-.64-1.547c.425-.07.86-.125 1.297-.16v.16zm5.84-.16c.433.035.865.09 1.285.16-.2.512-.41 1.027-.633 1.538a22.58 22.58 0 0 0-.653-1.538v-.16zm-8.007 1.23c.224.56.463 1.11.718 1.646-.254.54-.49 1.09-.712 1.65-.575-.176-1.114-.38-1.612-.61.09-.308.197-.618.323-.922.13-.314.275-.627.438-.935.29-.132.562-.254.846-.366v-.464zm10.165 0c.285.11.558.234.848.365.163.308.308.62.436.934.127.305.234.616.325.924-.498.23-1.037.435-1.612.61a23.29 23.29 0 0 1-.711-1.65c.256-.538.495-1.087.716-1.645l-.002-.538zm-4.538 2.588c.183.348.358.696.525 1.045-.536.075-1.082.117-1.633.125.183-.346.358-.693.525-1.038.193-.02.387-.032.583-.032.194 0 .385.01.575.027-.182.347-.358.694-.525 1.043.545-.01 1.087-.054 1.617-.132a21.97 21.97 0 0 1-.533-1.055c-.193.02-.39.032-.59.032a12.68 12.68 0 0 1-.544-.015zm.528 2.26v-.07c.37-.04.735-.094 1.097-.16-.2.502-.413 1.002-.64 1.494a22.54 22.54 0 0 0-.565-1.094c.04-.058.076-.115.108-.17zm-1.145.074a22.05 22.05 0 0 0-.552 1.09 22.41 22.41 0 0 1-.647-1.506c.386.066.782.12 1.186.16l.013.256zm5.28.328c.28.112.552.234.843.366-.162.305-.307.618-.435.934-.126.304-.233.614-.323.922a12.64 12.64 0 0 1-1.612-.61c.22-.56.457-1.11.712-1.647.28-.107.55-.223.818-.366l-.003.4zm-9.333.001c.27.143.54.26.82.367.254.54.49 1.09.712 1.65a12.668 12.668 0 0 1-1.612.61 10.87 10.87 0 0 1-.76-1.855c.29-.133.562-.255.845-.367l-.005-.405zm4.658.88v.18a21.43 21.43 0 0 0-1.108-.08c.18-.368.37-.733.565-1.093.173.316.355.64.543.973v.02zm-.95 1.167c.65.074 1.324.113 2.007.113.688 0 1.367-.038 2.022-.113.18.368.35.733.51 1.093-.536.077-1.08.12-1.632.128a22.043 22.043 0 0 1-.543-1.038 22.51 22.51 0 0 0-.552 1.025c-.544-.008-1.083-.05-1.612-.123.16-.36.326-.724.5-1.085h-.7zm-1.21.178a23.476 23.476 0 0 0 .543 1.095c-.183.343-.358.69-.525 1.038a21.47 21.47 0 0 1-1.285-.16c.202-.508.416-1.01.64-1.5a21.48 21.48 0 0 1-.287.152.01.01 0 0 0-.003.004c-.712.464-1.283.95-1.69 1.42-.475.553-.758 1.062-.85 1.47-.026.133-.024.21.006.264.046.07.133.159.278.254.32.21.765.415 1.33.59.31-.242.64-.473.99-.688.762-.465 1.45-.85 2.05-1.15.285-.144.556-.27.815-.38v-.412a23.032 23.032 0 0 1-1.02-1.73c-.33-.61-.673-1.192-1.032-1.747.67-.077 1.36-.116 2.067-.116.7 0 1.39.04 2.054.115.354.548.698 1.12 1.028 1.72.322.593.617 1.197.886 1.803-.27.604-.56 1.207-.882 1.8-.322.582-.67 1.162-1.036 1.73a15.554 15.554 0 0 1-.196.15 23.988 23.988 0 0 0 2.008-2.44c1.078-.07 2.1-.21 3.064-.49.112.507.2 1.002.25 1.469.22 1.868-.07 3.32-.737 3.707a1.095 1.095 0 0 1-.5.13c-.997 0-2.493-.807-4.085-2.28.665-.61 1.318-1.268 1.954-1.978.006-.007.014-.013.02-.02 1.18.215 2.304.353 3.335.414.46-.32.88-.69 1.25-1.1.497-.553.834-1.158.972-1.77.14-.62.09-1.18-.127-1.65a2.135 2.135 0 0 0-.95-1.005c-.34-.198-.726-.31-1.13-.352-.81-.083-1.74.02-2.742.26a23.47 23.47 0 0 0-1.064-2.14c.37-.74.71-1.457 1.02-2.146-.69.167-1.41.37-2.166.613a15.614 15.614 0 0 1-.188.143c-.012.01-.024.02-.036.03-.712-.46-1.28-.948-1.69-1.42-.476-.554-.76-1.063-.85-1.47-.025-.134-.024-.21.005-.265a2.3 2.3 0 0 1 .523-.514c.486-.348 1.29-.78 2.278-1.095.68.243 1.41.448 2.185.617a23.973 23.973 0 0 0 1.062 2.16 23.46 23.46 0 0 0-1.025 2.146c-.762-.164-1.49-.365-2.163-.596l-.1.006v.604a15.42 15.42 0 0 1-.188-.143c-.013-.01-.024-.02-.036-.03-.712.46-1.28.948-1.69 1.42-.476.553-.76 1.062-.85 1.47-.026.133-.025.21.005.264.046.07.133.16.278.255.32.21.765.415 1.33.59.31-.242.64-.473.99-.687.76-.465 1.45-.85 2.05-1.15.285-.145.556-.27.815-.38V12.6a23.032 23.032 0 0 1-1.02-1.73c-.33-.61-.673-1.192-1.032-1.747.67-.077 1.36-.116 2.067-.116.7 0 1.39.04 2.054.115.354.548.698 1.12 1.028 1.72.322.592.617 1.197.886 1.803-.27.604-.56 1.207-.882 1.8-.322.582-.67 1.162-1.036 1.73a15.554 15.554 0 0 1-.196.15v-.16z"/>
-            </svg>
-            <span class="framework-icon__name">React</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================
-         CHANGELOG
-         ======================================== -->
-    <section class="changelog" id="changelog">
-      <div class="container">
-        <div class="section__header">
-          <span class="section__badge">Updates</span>
-          <h2 class="section__title">Latest Changes</h2>
-          <p class="section__description">
-            Stay up to date with the latest improvements and features.
-          </p>
-        </div>
-
-        <div class="changelog__list">
-          <article class="changelog-item">
-            <time class="changelog-item__date">Dec 28</time>
-            <div class="changelog-item__content">
-              <span class="changelog-item__version">v0.1.0</span>
-              <h3 class="changelog-item__title">Initial Release</h3>
-              <p class="changelog-item__description">
-                First beta release with core design tokens, CSS variables, and landing page.
-              </p>
+}</code></pre>
             </div>
-          </article>
+
+            <!-- Live preview -->
+            <div class="code-live-preview">
+              <div class="live-card">
+                <div class="live-card__header">
+                  <h4>Sign Up</h4>
+                </div>
+                <div class="live-card__body">
+                  <div class="live-input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="you@example.com">
+                  </div>
+                  <button class="live-btn">Continue</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         CTA SECTION
+         ======================================== -->
+    <section class="cta-section" id="get-started">
+      <div class="container">
+        <div class="cta-box">
+          <div class="cta-box__bg">
+            <div class="cta-box__orb cta-box__orb--1"></div>
+            <div class="cta-box__orb cta-box__orb--2"></div>
+          </div>
+
+          <div class="cta-box__content">
+            <h2>Ready to build<br><span class="text-gradient">something beautiful?</span></h2>
+            <p>Start with Simple DS today. Free forever. Open source.</p>
+
+            <div class="cta-box__actions">
+              <a href="/docs" class="btn btn--primary btn--large btn--glow">
+                <span>Get Started Free</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </a>
+              <a href="https://github.com/alexanderuk82/simple-design-library" class="btn btn--ghost btn--large" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <span>Star on GitHub</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -423,73 +696,46 @@
        ======================================== -->
   <footer class="footer">
     <div class="container">
-      <div class="footer__inner">
+      <div class="footer__top">
         <div class="footer__brand">
           <a href="/" class="footer__logo">
-            <img src="assets/images/logo-icon.svg" alt="" class="footer__logo-icon">
-            <span class="footer__logo-text">Simple DS</span>
+            <img src="assets/images/logo-icon.svg" alt="">
+            <span>Simple<span class="text-accent">DS</span></span>
           </a>
-          <p class="footer__description">
-            A modern, accessible UI component library for building beautiful web applications.
-          </p>
-          <div class="footer__social">
-            <a href="https://github.com/alexanderuk82/simple-design-library" class="footer__social-link" aria-label="GitHub" target="_blank" rel="noopener">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            <a href="https://twitter.com" class="footer__social-link" aria-label="Twitter" target="_blank" rel="noopener">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-            <a href="https://discord.com" class="footer__social-link" aria-label="Discord" target="_blank" rel="noopener">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
-              </svg>
-            </a>
-          </div>
+          <p>The component library that doesn't compromise.</p>
         </div>
 
-        <nav class="footer__nav">
-          <h4 class="footer__nav-title">Documentation</h4>
-          <ul class="footer__nav-list">
-            <li><a href="/docs/getting-started" class="footer__nav-link">Getting Started</a></li>
-            <li><a href="/docs/installation" class="footer__nav-link">Installation</a></li>
-            <li><a href="/docs/theming" class="footer__nav-link">Theming</a></li>
-            <li><a href="/docs/tokens" class="footer__nav-link">Design Tokens</a></li>
-          </ul>
-        </nav>
-
-        <nav class="footer__nav">
-          <h4 class="footer__nav-title">Components</h4>
-          <ul class="footer__nav-list">
-            <li><a href="/components/button" class="footer__nav-link">Button</a></li>
-            <li><a href="/components/input" class="footer__nav-link">Input</a></li>
-            <li><a href="/components/card" class="footer__nav-link">Card</a></li>
-            <li><a href="/components/modal" class="footer__nav-link">Modal</a></li>
-          </ul>
-        </nav>
-
-        <nav class="footer__nav">
-          <h4 class="footer__nav-title">Community</h4>
-          <ul class="footer__nav-list">
-            <li><a href="https://github.com/alexanderuk82/simple-design-library" class="footer__nav-link" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://discord.com" class="footer__nav-link" target="_blank" rel="noopener">Discord</a></li>
-            <li><a href="https://twitter.com" class="footer__nav-link" target="_blank" rel="noopener">Twitter</a></li>
-            <li><a href="/changelog" class="footer__nav-link">Changelog</a></li>
-          </ul>
-        </nav>
+        <div class="footer__links">
+          <div class="footer__col">
+            <h4>Product</h4>
+            <a href="/components">Components</a>
+            <a href="/docs">Documentation</a>
+            <a href="/changelog.html">Changelog</a>
+            <a href="/figma">Figma Kit</a>
+          </div>
+          <div class="footer__col">
+            <h4>Resources</h4>
+            <a href="/docs/getting-started">Getting Started</a>
+            <a href="/docs/theming">Theming</a>
+            <a href="/docs/tokens">Design Tokens</a>
+            <a href="/examples">Examples</a>
+          </div>
+          <div class="footer__col">
+            <h4>Community</h4>
+            <a href="https://github.com/alexanderuk82/simple-design-library" target="_blank">GitHub</a>
+            <a href="https://discord.com" target="_blank">Discord</a>
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+          </div>
+        </div>
       </div>
 
       <div class="footer__bottom">
         <p>&copy; 2024 Simple Design System. MIT License.</p>
-        <p>Made with care by <a href="https://github.com/alexanderuk82" target="_blank" rel="noopener" style="color: var(--primary);">@alexanderuk82</a></p>
+        <p>Crafted by <a href="https://github.com/alexanderuk82" target="_blank">@alexanderuk82</a></p>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="js/main.js"></script>
 </body>
 </html>
