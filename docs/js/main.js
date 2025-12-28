@@ -352,11 +352,15 @@ document.body.innerHTML = app`
 
   // Only setup scroll-triggered tabs on desktop
   if (typeof ScrollTrigger !== 'undefined' && window.innerWidth >= 1024) {
-    // Create scroll-triggered tab switching
+    const codeLayout = document.querySelector('.code-section__layout');
+
+    // Pin the entire code layout while scrolling through tabs
     ScrollTrigger.create({
       trigger: codeSection,
-      start: 'top 20%',
-      end: 'bottom 60%',
+      start: 'top 80px',
+      end: '+=200%', // Scroll distance for the effect (3 tabs = enough scroll space)
+      pin: codeLayout,
+      pinSpacing: true,
       onUpdate: (self) => {
         const progress = self.progress;
 

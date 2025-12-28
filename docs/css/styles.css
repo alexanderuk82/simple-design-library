@@ -1754,14 +1754,6 @@ input {
   padding: var(--space-5xl) 0;
 }
 
-/* Extended height on desktop for scroll-triggered tabs */
-@media (min-width: 1024px) {
-  .code-section {
-    min-height: 200vh;
-    padding-bottom: 60vh;
-  }
-}
-
 .code-section__layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -1777,21 +1769,6 @@ input {
 
 .code-section__info {
   position: relative;
-}
-
-/* On desktop, both columns are sticky */
-@media (min-width: 1024px) {
-  .code-section__info {
-    position: sticky;
-    top: 120px;
-    align-self: start;
-  }
-
-  .code-section__preview {
-    position: sticky;
-    top: 100px;
-    align-self: start;
-  }
 }
 
 .code-section__desc {
