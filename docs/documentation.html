@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple Design System Documentation - Installation, Design Tokens, Customization and Theming Guide">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <title>Documentation - Simple Design System</title>
+
+  <style>
+    /* ========================================
+       DOCUMENTATION PAGE STYLES
+       Mobile First Approach
+       ======================================== */
+
+    /* Skip Link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      z-index: 9999;
+      transition: top var(--duration-fast);
+    }
+
+    .skip-link:focus {
+      top: var(--space-md);
+    }
+
+    /* Documentation Layout - Mobile First */
+    .docs {
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    .docs__container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    /* Mobile Sidebar Toggle */
+    .docs__sidebar-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: var(--space-md);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+      font-weight: 600;
+      color: var(--fg);
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+
+    .docs__sidebar-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    .docs__sidebar-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .docs__sidebar-toggle svg {
+      transition: transform var(--duration-base);
+    }
+
+    .docs__sidebar-toggle[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+
+    /* Sidebar Navigation */
+    .docs__sidebar {
+      display: none;
+      margin-bottom: var(--space-xl);
+    }
+
+    .docs__sidebar.active {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .docs__nav {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+    }
+
+    .docs__nav-section {
+      margin-bottom: var(--space-md);
+    }
+
+    .docs__nav-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .docs__nav-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--fg-subtle);
+      padding: var(--space-sm) var(--space-sm);
+      margin-bottom: var(--space-xs);
+    }
+
+    .docs__nav-link {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--fg-muted);
+      font-size: 0.9rem;
+      border-radius: var(--radius-md);
+      transition: all var(--duration-fast);
+    }
+
+    .docs__nav-link:hover {
+      background: var(--bg-elevated);
+      color: var(--fg);
+    }
+
+    .docs__nav-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .docs__nav-link.active {
+      background: var(--accent);
+      color: white;
+      font-weight: 500;
+    }
+
+    /* Main Content Area */
+    .docs__content {
+      max-width: 800px;
+    }
+
+    /* Section Styling */
+    .docs__section {
+      margin-bottom: var(--space-4xl);
+      scroll-margin-top: 100px;
+    }
+
+    .docs__section-header {
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .docs__section-tag {
+      display: inline-block;
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--accent);
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .docs__section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.2;
+      margin-bottom: var(--space-sm);
+    }
+
+    .docs__section-desc {
+      font-size: 1rem;
+      color: var(--fg-muted);
+      line-height: 1.6;
+    }
+
+    /* Subsection */
+    .docs__subsection {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .docs__subsection-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .docs__subsection-title::before {
+      content: '';
+      width: 4px;
+      height: 1.25rem;
+      background: var(--accent);
+      border-radius: var(--radius-full);
+    }
+
+    /* Code Blocks */
+    .docs__code-block {
+      position: relative;
+      background: #0d0d0d;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--space-md);
+      background: #171717;
+      border-bottom: 1px solid #262626;
+    }
+
+    .docs__code-lang {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--fg-subtle);
+    }
+
+    .docs__code-copy {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      background: #262626;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #a1a1a1;
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+
+    .docs__code-copy:hover {
+      background: #333;
+      color: white;
+    }
+
+    .docs__code-copy:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .docs__code-content {
+      padding: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: #e5e5e5;
+      overflow-x: auto;
+    }
+
+    .docs__code-content code {
+      display: block;
+      white-space: pre;
+    }
+
+    /* Inline Code */
+    .docs__inline-code {
+      padding: 0.15em 0.4em;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      color: var(--accent);
+    }
+
+    /* Tables */
+    .docs__table-wrapper {
+      overflow-x: auto;
+      margin-bottom: var(--space-lg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .docs__table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .docs__table th,
+    .docs__table td {
+      padding: var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .docs__table th {
+      background: var(--bg-subtle);
+      font-weight: 600;
+      color: var(--fg);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .docs__table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .docs__table tr:hover td {
+      background: var(--bg-subtle);
+    }
+
+    /* Color Swatches */
+    .docs__color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__color-swatch {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+    }
+
+    .docs__color-swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .docs__color-preview {
+      height: 80px;
+      position: relative;
+    }
+
+    .docs__color-info {
+      padding: var(--space-sm);
+      background: var(--bg);
+    }
+
+    .docs__color-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 2px;
+    }
+
+    .docs__color-value {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--fg-muted);
+    }
+
+    /* Spacing Demo */
+    .docs__spacing-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__spacing-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .docs__spacing-label {
+      min-width: 80px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--fg-muted);
+    }
+
+    .docs__spacing-bar {
+      height: 24px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: var(--radius-sm);
+      transition: width var(--duration-base);
+    }
+
+    /* Typography Demo */
+    .docs__type-demo {
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__type-item {
+      padding: var(--space-md);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    .docs__type-sample {
+      margin-bottom: var(--space-sm);
+    }
+
+    .docs__type-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--fg-muted);
+    }
+
+    /* Alert/Info Boxes */
+    .docs__alert {
+      display: flex;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__alert--info {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+
+    .docs__alert--warning {
+      background: color-mix(in srgb, #f59e0b 10%, transparent);
+      border: 1px solid color-mix(in srgb, #f59e0b 30%, transparent);
+    }
+
+    .docs__alert--success {
+      background: color-mix(in srgb, #10b981 10%, transparent);
+      border: 1px solid color-mix(in srgb, #10b981 30%, transparent);
+    }
+
+    .docs__alert-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .docs__alert--info .docs__alert-icon {
+      color: var(--accent);
+    }
+
+    .docs__alert--warning .docs__alert-icon {
+      color: #f59e0b;
+    }
+
+    .docs__alert--success .docs__alert-icon {
+      color: #10b981;
+    }
+
+    .docs__alert-content {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+
+    .docs__alert-title {
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Install Tabs */
+    .docs__install-tabs {
+      display: flex;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: var(--space-xs);
+      overflow-x: auto;
+    }
+
+    .docs__install-tab {
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--fg-muted);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--duration-fast);
+    }
+
+    .docs__install-tab:hover {
+      color: var(--fg);
+      background: var(--bg-subtle);
+    }
+
+    .docs__install-tab:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .docs__install-tab.active {
+      color: var(--accent);
+      background: var(--bg-subtle);
+      border-bottom: 2px solid var(--accent);
+      margin-bottom: -1px;
+    }
+
+    .docs__install-content {
+      display: none;
+    }
+
+    .docs__install-content.active {
+      display: block;
+    }
+
+    /* Theme Builder Preview */
+    .docs__theme-builder {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__theme-controls {
+      display: grid;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .docs__theme-control {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .docs__theme-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .docs__theme-input {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .docs__color-picker {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .docs__color-picker::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .docs__color-picker::-webkit-color-swatch {
+      border: none;
+      border-radius: var(--radius-sm);
+    }
+
+    .docs__color-picker:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .docs__theme-preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .docs__theme-preview-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--fg-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-md);
+    }
+
+    /* Simple Footer for Docs */
+    .docs-footer {
+      margin-top: var(--space-4xl);
+      padding: var(--space-xl) 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .docs-footer p {
+      font-size: 0.9rem;
+      color: var(--fg-muted);
+    }
+
+    .docs-footer a {
+      color: var(--accent);
+      transition: color var(--duration-fast);
+    }
+
+    .docs-footer a:hover {
+      color: var(--accent-light);
+    }
+
+    /* ========================================
+       TABLET & DESKTOP STYLES
+       ======================================== */
+    @media (min-width: 768px) {
+      .docs {
+        padding-top: 100px;
+      }
+
+      .docs__container {
+        padding: 0 var(--space-xl);
+      }
+
+      .docs__theme-controls {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .docs__container {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: var(--space-3xl);
+        padding: 0 var(--space-2xl);
+      }
+
+      /* Hide mobile toggle on desktop */
+      .docs__sidebar-toggle {
+        display: none;
+      }
+
+      /* Show sidebar always on desktop */
+      .docs__sidebar {
+        display: block;
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+      }
+
+      .docs__content {
+        max-width: none;
+      }
+
+      .docs__theme-controls {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ========================================
+       ACCESSIBILITY - Focus States
+       ======================================== */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ========================================
+       HEADER (Same as other pages)
+       ======================================== -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo">
+        <img src="assets/images/logo-icon.svg" alt="Simple DS" class="header__logo-icon">
+        <span class="header__logo-text">Simple<span class="text-accent">DS</span></span>
+      </a>
+
+      <nav class="header__nav" id="mainNav" aria-label="Main navigation">
+        <a href="index.html#components" class="header__nav-link" data-hover="Components">Components</a>
+        <a href="index.html#features" class="header__nav-link" data-hover="Features">Features</a>
+        <a href="index.html#code" class="header__nav-link" data-hover="Code">Code</a>
+        <a href="documentation.html" class="header__nav-link header__nav-link--active" data-hover="Docs">Docs</a>
+        <a href="changelog.html" class="header__nav-link" data-hover="Changelog">Changelog</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+          <span class="theme-toggle__icon"></span>
+        </button>
+
+        <a href="https://github.com/alexanderuk82/simple-design-library" class="btn btn--primary btn--glow header__cta-desktop" target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 13L13 1M13 1H1M13 1V13" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button class="menu-trigger" id="menuTrigger" type="button" aria-label="Open menu" aria-expanded="false">
+          <span class="menu-trigger__text">
+            <span class="menu-trigger__word menu-trigger__word--menu">Menu</span>
+            <span class="menu-trigger__word menu-trigger__word--close">Close</span>
+          </span>
+          <span class="menu-trigger__indicator" aria-hidden="true">
+            <span class="menu-trigger__dot"></span>
+            <span class="menu-trigger__dot"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+    <div class="nav-overlay__bg"></div>
+    <div class="nav-overlay__content">
+      <div class="nav-overlay__left">
+        <nav class="nav-overlay__menu" aria-label="Mobile navigation">
+          <a href="index.html#components" class="nav-overlay__link" data-index="01">
+            <span class="nav-overlay__link-text">Components</span>
+            <span class="nav-overlay__link-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="index.html#features" class="nav-overlay__link" data-index="02">
+            <span class="nav-overlay__link-text">Features</span>
+            <span class="nav-overlay__link-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="documentation.html" class="nav-overlay__link" data-index="03">
+            <span class="nav-overlay__link-text">Documentation</span>
+            <span class="nav-overlay__link-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="changelog.html" class="nav-overlay__link" data-index="04">
+            <span class="nav-overlay__link-text">Changelog</span>
+            <span class="nav-overlay__link-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+          <a href="https://github.com/alexanderuk82/simple-design-library" class="nav-overlay__link" data-index="05" target="_blank" rel="noopener">
+            <span class="nav-overlay__link-text">GitHub</span>
+            <span class="nav-overlay__link-arrow" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       MAIN CONTENT
+       ======================================== -->
+  <main class="docs" id="main-content">
+    <div class="docs__container">
+
+      <!-- Mobile Sidebar Toggle -->
+      <button class="docs__sidebar-toggle" id="sidebarToggle" type="button" aria-expanded="false" aria-controls="docsSidebar">
+        <span>Documentation Menu</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+
+      <!-- Sidebar Navigation -->
+      <aside class="docs__sidebar" id="docsSidebar" aria-label="Documentation navigation">
+        <nav class="docs__nav">
+          <div class="docs__nav-section">
+            <h2 class="docs__nav-title">Getting Started</h2>
+            <a href="#installation" class="docs__nav-link active">Installation</a>
+            <a href="#quick-start" class="docs__nav-link">Quick Start</a>
+          </div>
+
+          <div class="docs__nav-section">
+            <h2 class="docs__nav-title">Design Tokens</h2>
+            <a href="#colors" class="docs__nav-link">Colors</a>
+            <a href="#typography" class="docs__nav-link">Typography</a>
+            <a href="#spacing" class="docs__nav-link">Spacing</a>
+            <a href="#effects" class="docs__nav-link">Effects</a>
+          </div>
+
+          <div class="docs__nav-section">
+            <h2 class="docs__nav-title">Customization</h2>
+            <a href="#theming" class="docs__nav-link">Theming</a>
+            <a href="#theme-builder" class="docs__nav-link">Theme Builder</a>
+          </div>
+
+          <div class="docs__nav-section">
+            <h2 class="docs__nav-title">Guidelines</h2>
+            <a href="#accessibility" class="docs__nav-link">Accessibility</a>
+            <a href="#best-practices" class="docs__nav-link">Best Practices</a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Documentation Content -->
+      <div class="docs__content">
+
+        <!-- ========== INSTALLATION ========== -->
+        <section class="docs__section" id="installation">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Getting Started</span>
+            <h1 class="docs__section-title">Installation</h1>
+            <p class="docs__section-desc">
+              Get Simple Design System up and running in your project in minutes.
+              Choose your preferred package manager or use our CDN for quick prototyping.
+            </p>
+          </header>
+
+          <div class="docs__alert docs__alert--info" role="alert">
+            <svg class="docs__alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4M12 8h.01"/>
+            </svg>
+            <div class="docs__alert-content">
+              <p class="docs__alert-title">Requirements</p>
+              <p>Simple DS works with any modern framework or vanilla HTML/CSS. No dependencies required.</p>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h2 class="docs__subsection-title">Package Manager</h2>
+
+            <div class="docs__install-tabs" role="tablist" aria-label="Package manager options">
+              <button class="docs__install-tab active" role="tab" aria-selected="true" aria-controls="npm-content" id="npm-tab" data-tab="npm">npm</button>
+              <button class="docs__install-tab" role="tab" aria-selected="false" aria-controls="yarn-content" id="yarn-tab" data-tab="yarn">yarn</button>
+              <button class="docs__install-tab" role="tab" aria-selected="false" aria-controls="pnpm-content" id="pnpm-tab" data-tab="pnpm">pnpm</button>
+              <button class="docs__install-tab" role="tab" aria-selected="false" aria-controls="cdn-content" id="cdn-tab" data-tab="cdn">CDN</button>
+            </div>
+
+            <div class="docs__install-content active" role="tabpanel" id="npm-content" aria-labelledby="npm-tab">
+              <div class="docs__code-block">
+                <div class="docs__code-header">
+                  <span class="docs__code-lang">bash</span>
+                  <button class="docs__code-copy" type="button" aria-label="Copy code">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2"/>
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                    </svg>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <pre class="docs__code-content"><code>npm install simple-design-system</code></pre>
+              </div>
+            </div>
+
+            <div class="docs__install-content" role="tabpanel" id="yarn-content" aria-labelledby="yarn-tab" hidden>
+              <div class="docs__code-block">
+                <div class="docs__code-header">
+                  <span class="docs__code-lang">bash</span>
+                  <button class="docs__code-copy" type="button" aria-label="Copy code">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2"/>
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                    </svg>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <pre class="docs__code-content"><code>yarn add simple-design-system</code></pre>
+              </div>
+            </div>
+
+            <div class="docs__install-content" role="tabpanel" id="pnpm-content" aria-labelledby="pnpm-tab" hidden>
+              <div class="docs__code-block">
+                <div class="docs__code-header">
+                  <span class="docs__code-lang">bash</span>
+                  <button class="docs__code-copy" type="button" aria-label="Copy code">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2"/>
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                    </svg>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <pre class="docs__code-content"><code>pnpm add simple-design-system</code></pre>
+              </div>
+            </div>
+
+            <div class="docs__install-content" role="tabpanel" id="cdn-content" aria-labelledby="cdn-tab" hidden>
+              <div class="docs__code-block">
+                <div class="docs__code-header">
+                  <span class="docs__code-lang">html</span>
+                  <button class="docs__code-copy" type="button" aria-label="Copy code">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2"/>
+                      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                    </svg>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <pre class="docs__code-content"><code>&lt;!-- CSS only --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/simple-design-system/dist/simple-ds.css"&gt;
+
+&lt;!-- With JavaScript components --&gt;
+&lt;script src="https://unpkg.com/simple-design-system/dist/simple-ds.js"&gt;&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== QUICK START ========== -->
+        <section class="docs__section" id="quick-start">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Getting Started</span>
+            <h2 class="docs__section-title">Quick Start</h2>
+            <p class="docs__section-desc">
+              Start using Simple DS in your project with just a few lines of code.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Import the CSS</h3>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">javascript</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">// In your main JS/TS file</span>
+<span class="token-keyword">import</span> <span class="token-string">'simple-design-system/css'</span>
+
+<span class="token-comment">// Or import specific modules</span>
+<span class="token-keyword">import</span> <span class="token-string">'simple-design-system/css/tokens.css'</span>
+<span class="token-keyword">import</span> <span class="token-string">'simple-design-system/css/components.css'</span></code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Use the Components</h3>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">html</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">&lt;!-- Button Component --&gt;</span>
+<span class="token-tag">&lt;button</span> <span class="token-attr">class</span>=<span class="token-string">"sds-btn sds-btn--primary"</span><span class="token-tag">&gt;</span>
+  Get Started
+<span class="token-tag">&lt;/button&gt;</span>
+
+<span class="token-comment">&lt;!-- Card Component --&gt;</span>
+<span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card"</span><span class="token-tag">&gt;</span>
+  <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card__header"</span><span class="token-tag">&gt;</span>Card Title<span class="token-tag">&lt;/div&gt;</span>
+  <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card__body"</span><span class="token-tag">&gt;</span>Content here<span class="token-tag">&lt;/div&gt;</span>
+<span class="token-tag">&lt;/div&gt;</span></code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== COLORS ========== -->
+        <section class="docs__section" id="colors">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Design Tokens</span>
+            <h2 class="docs__section-title">Colors</h2>
+            <p class="docs__section-desc">
+              A comprehensive color system built with OKLCH for perceptual uniformity.
+              Includes semantic colors that automatically adapt to light and dark modes.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Background Colors</h3>
+            <div class="docs__color-grid">
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--bg);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--bg</p>
+                  <p class="docs__color-value">Base background</p>
+                </div>
+              </div>
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--bg-subtle);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--bg-subtle</p>
+                  <p class="docs__color-value">Subtle background</p>
+                </div>
+              </div>
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--bg-elevated);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--bg-elevated</p>
+                  <p class="docs__color-value">Elevated surfaces</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Accent Colors</h3>
+            <div class="docs__color-grid">
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--accent);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--accent</p>
+                  <p class="docs__color-value">Primary accent</p>
+                </div>
+              </div>
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--accent-light);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--accent-light</p>
+                  <p class="docs__color-value">Light variant</p>
+                </div>
+              </div>
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--accent-dark);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--accent-dark</p>
+                  <p class="docs__color-value">Dark variant</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Text Colors</h3>
+            <div class="docs__color-grid">
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--fg);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--fg</p>
+                  <p class="docs__color-value">Primary text</p>
+                </div>
+              </div>
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--fg-muted);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--fg-muted</p>
+                  <p class="docs__color-value">Muted text</p>
+                </div>
+              </div>
+              <div class="docs__color-swatch">
+                <div class="docs__color-preview" style="background: var(--fg-subtle);"></div>
+                <div class="docs__color-info">
+                  <p class="docs__color-name">--fg-subtle</p>
+                  <p class="docs__color-value">Subtle text</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TYPOGRAPHY ========== -->
+        <section class="docs__section" id="typography">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Design Tokens</span>
+            <h2 class="docs__section-title">Typography</h2>
+            <p class="docs__section-desc">
+              A flexible type scale with three font families: Display for headlines,
+              Body for content, and Mono for code.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Font Families</h3>
+            <div class="docs__table-wrapper">
+              <table class="docs__table">
+                <thead>
+                  <tr>
+                    <th>Token</th>
+                    <th>Font</th>
+                    <th>Usage</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="docs__inline-code">--font-display</code></td>
+                    <td>Syne</td>
+                    <td>Headlines, titles</td>
+                  </tr>
+                  <tr>
+                    <td><code class="docs__inline-code">--font-body</code></td>
+                    <td>System stack</td>
+                    <td>Body text, UI</td>
+                  </tr>
+                  <tr>
+                    <td><code class="docs__inline-code">--font-mono</code></td>
+                    <td>JetBrains Mono</td>
+                    <td>Code, technical</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Type Scale</h3>
+            <div class="docs__type-demo">
+              <div class="docs__type-item">
+                <p class="docs__type-sample" style="font-family: var(--font-display); font-size: 3rem; font-weight: 700; line-height: 1.1;">Title Hero</p>
+                <div class="docs__type-meta">
+                  <span>Font: Display</span>
+                  <span>Size: 3rem</span>
+                  <span>Weight: 700</span>
+                </div>
+              </div>
+              <div class="docs__type-item">
+                <p class="docs__type-sample" style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; line-height: 1.2;">Title Page</p>
+                <div class="docs__type-meta">
+                  <span>Font: Display</span>
+                  <span>Size: 2rem</span>
+                  <span>Weight: 700</span>
+                </div>
+              </div>
+              <div class="docs__type-item">
+                <p class="docs__type-sample" style="font-size: 1.25rem; font-weight: 600; line-height: 1.4;">Heading</p>
+                <div class="docs__type-meta">
+                  <span>Font: Body</span>
+                  <span>Size: 1.25rem</span>
+                  <span>Weight: 600</span>
+                </div>
+              </div>
+              <div class="docs__type-item">
+                <p class="docs__type-sample" style="font-size: 1rem; line-height: 1.6;">Body Base - The quick brown fox jumps over the lazy dog.</p>
+                <div class="docs__type-meta">
+                  <span>Font: Body</span>
+                  <span>Size: 1rem</span>
+                  <span>Weight: 400</span>
+                </div>
+              </div>
+              <div class="docs__type-item">
+                <p class="docs__type-sample" style="font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6;">const code = "Body Code";</p>
+                <div class="docs__type-meta">
+                  <span>Font: Mono</span>
+                  <span>Size: 0.875rem</span>
+                  <span>Weight: 400</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SPACING ========== -->
+        <section class="docs__section" id="spacing">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Design Tokens</span>
+            <h2 class="docs__section-title">Spacing</h2>
+            <p class="docs__section-desc">
+              A consistent spacing scale for padding, margins, and gaps.
+              Uses a base-8 system for visual harmony.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Spacing Scale</h3>
+            <div class="docs__spacing-demo">
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-xs</span>
+                <div class="docs__spacing-bar" style="width: 4px;"></div>
+                <span class="docs__spacing-label">4px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-sm</span>
+                <div class="docs__spacing-bar" style="width: 8px;"></div>
+                <span class="docs__spacing-label">8px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-md</span>
+                <div class="docs__spacing-bar" style="width: 16px;"></div>
+                <span class="docs__spacing-label">16px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-lg</span>
+                <div class="docs__spacing-bar" style="width: 24px;"></div>
+                <span class="docs__spacing-label">24px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-xl</span>
+                <div class="docs__spacing-bar" style="width: 32px;"></div>
+                <span class="docs__spacing-label">32px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-2xl</span>
+                <div class="docs__spacing-bar" style="width: 48px;"></div>
+                <span class="docs__spacing-label">48px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-3xl</span>
+                <div class="docs__spacing-bar" style="width: 64px;"></div>
+                <span class="docs__spacing-label">64px</span>
+              </div>
+              <div class="docs__spacing-item">
+                <span class="docs__spacing-label">--space-4xl</span>
+                <div class="docs__spacing-bar" style="width: 96px;"></div>
+                <span class="docs__spacing-label">96px</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== THEMING ========== -->
+        <section class="docs__section" id="theming">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Customization</span>
+            <h2 class="docs__section-title">Theming</h2>
+            <p class="docs__section-desc">
+              Customize Simple DS to match your brand. Override CSS variables to change
+              colors, fonts, spacing, and more throughout the entire system.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Override Colors</h3>
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Your custom theme */</span>
+<span class="token-tag">:root</span> {
+  <span class="token-comment">/* Primary accent color */</span>
+  <span class="token-attr">--accent</span>: <span class="token-string">oklch(0.65 0.25 150)</span>;
+  <span class="token-attr">--accent-light</span>: <span class="token-string">oklch(0.75 0.20 150)</span>;
+  <span class="token-attr">--accent-dark</span>: <span class="token-string">oklch(0.55 0.25 150)</span>;
+
+  <span class="token-comment">/* Or use hex/rgb/hsl */</span>
+  <span class="token-attr">--accent</span>: <span class="token-string">#10b981</span>;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Override Fonts</h3>
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Import your fonts first */</span>
+<span class="token-keyword">@import</span> <span class="token-string">url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap')</span>;
+
+<span class="token-tag">:root</span> {
+  <span class="token-attr">--font-display</span>: <span class="token-string">'Space Grotesk', sans-serif</span>;
+  <span class="token-attr">--font-body</span>: <span class="token-string">'Space Grotesk', sans-serif</span>;
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== THEME BUILDER ========== -->
+        <section class="docs__section" id="theme-builder">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Customization</span>
+            <h2 class="docs__section-title">Theme Builder</h2>
+            <p class="docs__section-desc">
+              Experiment with different accent colors and see the changes in real-time.
+              Copy the generated CSS to use in your project.
+            </p>
+          </header>
+
+          <div class="docs__theme-builder">
+            <div class="docs__theme-controls">
+              <div class="docs__theme-control">
+                <label class="docs__theme-label" for="accentColor">Accent Color</label>
+                <div class="docs__theme-input">
+                  <input type="color" id="accentColor" class="docs__color-picker" value="#6366f1" aria-describedby="accentColorDesc">
+                  <span id="accentColorDesc" class="docs__color-value">#6366f1</span>
+                </div>
+              </div>
+              <div class="docs__theme-control">
+                <label class="docs__theme-label" for="bgColor">Background</label>
+                <div class="docs__theme-input">
+                  <input type="color" id="bgColor" class="docs__color-picker" value="#ffffff" aria-describedby="bgColorDesc">
+                  <span id="bgColorDesc" class="docs__color-value">#ffffff</span>
+                </div>
+              </div>
+              <div class="docs__theme-control">
+                <label class="docs__theme-label" for="fgColor">Text Color</label>
+                <div class="docs__theme-input">
+                  <input type="color" id="fgColor" class="docs__color-picker" value="#1f1f1f" aria-describedby="fgColorDesc">
+                  <span id="fgColorDesc" class="docs__color-value">#1f1f1f</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="docs__theme-preview" id="themePreview">
+              <p class="docs__theme-preview-title">Preview</p>
+              <div style="display: flex; flex-wrap: wrap; gap: var(--space-md);">
+                <button class="btn btn--primary" id="previewBtn">Primary Button</button>
+                <button class="btn btn--secondary">Secondary</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="docs__code-block">
+            <div class="docs__code-header">
+              <span class="docs__code-lang">Generated CSS</span>
+              <button class="docs__code-copy" type="button" aria-label="Copy generated CSS">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <pre class="docs__code-content"><code id="generatedCSS">:root {
+  --accent: #6366f1;
+  --bg: #ffffff;
+  --fg: #1f1f1f;
+}</code></pre>
+          </div>
+        </section>
+
+        <!-- ========== ACCESSIBILITY ========== -->
+        <section class="docs__section" id="accessibility">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Guidelines</span>
+            <h2 class="docs__section-title">Accessibility</h2>
+            <p class="docs__section-desc">
+              Simple DS is built with accessibility in mind. All components meet WCAG 2.1 AA standards.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Key Features</h3>
+
+            <div class="docs__alert docs__alert--success">
+              <svg class="docs__alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <path d="M22 4L12 14.01l-3-3"/>
+              </svg>
+              <div class="docs__alert-content">
+                <p class="docs__alert-title">Color Contrast</p>
+                <p>All color combinations meet WCAG 2.1 AA contrast requirements (4.5:1 for normal text, 3:1 for large text).</p>
+              </div>
+            </div>
+
+            <div class="docs__alert docs__alert--success">
+              <svg class="docs__alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <path d="M22 4L12 14.01l-3-3"/>
+              </svg>
+              <div class="docs__alert-content">
+                <p class="docs__alert-title">Keyboard Navigation</p>
+                <p>All interactive elements are fully keyboard accessible with visible focus states.</p>
+              </div>
+            </div>
+
+            <div class="docs__alert docs__alert--success">
+              <svg class="docs__alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <path d="M22 4L12 14.01l-3-3"/>
+              </svg>
+              <div class="docs__alert-content">
+                <p class="docs__alert-title">Screen Reader Support</p>
+                <p>Proper ARIA labels and semantic HTML ensure compatibility with assistive technologies.</p>
+              </div>
+            </div>
+
+            <div class="docs__alert docs__alert--success">
+              <svg class="docs__alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <path d="M22 4L12 14.01l-3-3"/>
+              </svg>
+              <div class="docs__alert-content">
+                <p class="docs__alert-title">Reduced Motion</p>
+                <p>Respects <code class="docs__inline-code">prefers-reduced-motion</code> for users who are sensitive to animations.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== BEST PRACTICES ========== -->
+        <section class="docs__section" id="best-practices">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Guidelines</span>
+            <h2 class="docs__section-title">Best Practices</h2>
+            <p class="docs__section-desc">
+              Tips for getting the most out of Simple Design System.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Use Design Tokens</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Always use CSS variables instead of hard-coded values. This ensures consistency
+              and makes theming easy.
+            </p>
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Good */</span>
+<span class="token-tag">.my-component</span> {
+  <span class="token-attr">padding</span>: <span class="token-string">var(--space-md)</span>;
+  <span class="token-attr">color</span>: <span class="token-string">var(--fg)</span>;
+  <span class="token-attr">background</span>: <span class="token-string">var(--bg-subtle)</span>;
+}
+
+<span class="token-comment">/* Avoid */</span>
+<span class="token-tag">.my-component</span> {
+  <span class="token-attr">padding</span>: <span class="token-string">16px</span>;
+  <span class="token-attr">color</span>: <span class="token-string">#1f1f1f</span>;
+  <span class="token-attr">background</span>: <span class="token-string">#f5f5f5</span>;
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="docs-footer">
+          <p>&copy; <span class="current-year">2024</span> Simple Design System. MIT License.</p>
+          <p>Crafted by <a href="https://github.com/alexanderuk82" target="_blank" rel="noopener">@alexanderuk82</a></p>
+        </footer>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Theme Toggle
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      html.classList.add('dark');
+    }
+
+    toggle?.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Mobile Menu
+    const menuTrigger = document.getElementById('menuTrigger');
+    const navOverlay = document.getElementById('navOverlay');
+
+    menuTrigger?.addEventListener('click', () => {
+      const isOpen = navOverlay.classList.contains('active');
+      menuTrigger.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      navOverlay.setAttribute('aria-hidden', isOpen);
+      menuTrigger.setAttribute('aria-expanded', !isOpen);
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.nav-overlay__link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuTrigger?.classList.remove('active');
+        navOverlay?.classList.remove('active');
+        navOverlay?.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Sidebar Toggle (Mobile)
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const docsSidebar = document.getElementById('docsSidebar');
+
+    sidebarToggle?.addEventListener('click', () => {
+      const isExpanded = sidebarToggle.getAttribute('aria-expanded') === 'true';
+      sidebarToggle.setAttribute('aria-expanded', !isExpanded);
+      docsSidebar.classList.toggle('active');
+    });
+
+    // Install Tabs
+    const installTabs = document.querySelectorAll('.docs__install-tab');
+    const installContents = document.querySelectorAll('.docs__install-content');
+
+    installTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.dataset.tab;
+
+        installTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        installContents.forEach(c => {
+          c.classList.remove('active');
+          c.hidden = true;
+        });
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const targetContent = document.getElementById(`${targetTab}-content`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          targetContent.hidden = false;
+        }
+      });
+    });
+
+    // Copy Code Buttons
+    document.querySelectorAll('.docs__code-copy').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const codeBlock = btn.closest('.docs__code-block');
+        const code = codeBlock.querySelector('code').textContent;
+
+        try {
+          await navigator.clipboard.writeText(code);
+          const originalText = btn.querySelector('span').textContent;
+          btn.querySelector('span').textContent = 'Copied!';
+          setTimeout(() => {
+            btn.querySelector('span').textContent = originalText;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+
+    // Theme Builder
+    const accentColor = document.getElementById('accentColor');
+    const bgColor = document.getElementById('bgColor');
+    const fgColor = document.getElementById('fgColor');
+    const generatedCSS = document.getElementById('generatedCSS');
+    const previewBtn = document.getElementById('previewBtn');
+
+    function updateThemePreview() {
+      const accent = accentColor.value;
+      const bg = bgColor.value;
+      const fg = fgColor.value;
+
+      // Update preview button
+      if (previewBtn) {
+        previewBtn.style.background = accent;
+      }
+
+      // Update color value displays
+      document.getElementById('accentColorDesc').textContent = accent;
+      document.getElementById('bgColorDesc').textContent = bg;
+      document.getElementById('fgColorDesc').textContent = fg;
+
+      // Update generated CSS
+      generatedCSS.textContent = `:root {
+  --accent: ${accent};
+  --bg: ${bg};
+  --fg: ${fg};
+}`;
+    }
+
+    accentColor?.addEventListener('input', updateThemePreview);
+    bgColor?.addEventListener('input', updateThemePreview);
+    fgColor?.addEventListener('input', updateThemePreview);
+
+    // Active nav link based on scroll
+    const sections = document.querySelectorAll('.docs__section');
+    const navLinks = document.querySelectorAll('.docs__nav-link');
+
+    const observerOptions = {
+      rootMargin: '-100px 0px -60% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header?.classList.add('scrolled');
+      } else {
+        header?.classList.remove('scrolled');
+      }
+    });
+
+    // Initial check in case page loads scrolled
+    if (window.scrollY > 50) {
+      header?.classList.add('scrolled');
+    }
+
+    // Dynamic year
+    document.querySelectorAll('.current-year').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('.docs__nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const headerHeight = 100;
+          const targetPosition = targetElement.offsetTop - headerHeight;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+
+          // Close mobile sidebar after clicking
+          if (window.innerWidth < 1024) {
+            sidebarToggle?.setAttribute('aria-expanded', 'false');
+            docsSidebar?.classList.remove('active');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
