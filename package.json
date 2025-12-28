@@ -1,0 +1,44 @@
+{
+  "name": "simple-design-library",
+  "version": "0.0.1",
+  "description": "A lightweight, customizable UI component library for modern web applications",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "echo 'Build script coming soon'",
+    "dev": "echo 'Dev script coming soon'",
+    "test": "echo 'Test script coming soon'",
+    "lint": "echo 'Lint script coming soon'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderuk82/simple-design-library.git"
+  },
+  "keywords": [
+    "ui",
+    "components",
+    "design-system",
+    "css",
+    "library",
+    "tailwind",
+    "react",
+    "vue",
+    "svelte"
+  ],
+  "author": "alexanderuk82",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexanderuk82/simple-design-library/issues"
+  },
+  "homepage": "https://github.com/alexanderuk82/simple-design-library#readme",
+  "peerDependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
