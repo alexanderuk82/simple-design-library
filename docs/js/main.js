@@ -356,8 +356,7 @@ document.body.innerHTML = app`
     ScrollTrigger.create({
       trigger: codeSection,
       start: 'top 20%',
-      end: 'bottom 80%',
-      scrub: true,
+      end: 'bottom 60%',
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -383,16 +382,6 @@ document.body.innerHTML = app`
           switchToTab(tabOrder[newIndex]);
         }
       }
-    });
-
-    // Pin the code section info for sticky effect
-    ScrollTrigger.create({
-      trigger: '.code-section__info',
-      start: 'top 100px',
-      endTrigger: '.code-section',
-      end: 'bottom 80%',
-      pin: true,
-      pinSpacing: false
     });
   }
 }
