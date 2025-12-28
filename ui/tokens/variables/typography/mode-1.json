@@ -1,0 +1,158 @@
+{
+  "Typography": {
+    "Title Page": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Sans}",
+        "type": "string"
+      },
+      "Font Weight": {
+        "value": "{Typography Primitives.Weight Bold}",
+        "type": "float"
+      },
+      "Size Small": {
+        "value": "{Typography Primitives.Scale 07}",
+        "type": "float"
+      },
+      "Size Base": {
+        "value": "{Typography Primitives.Scale 08}",
+        "type": "float"
+      },
+      "Size Large": {
+        "value": "{Typography Primitives.Scale 09}",
+        "type": "float"
+      }
+    },
+    "Subtitle": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Sans}",
+        "type": "string"
+      },
+      "Size Base": {
+        "value": "{Typography Primitives.Scale 06}",
+        "type": "float"
+      },
+      "Font Weight": {
+        "value": "{Typography Primitives.Weight Regular}",
+        "type": "float"
+      },
+      "Size Large": {
+        "value": "{Typography Primitives.Scale 07}",
+        "type": "float"
+      },
+      "Size Small": {
+        "value": "{Typography Primitives.Scale 05}",
+        "type": "float"
+      }
+    },
+    "Body": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Sans}",
+        "type": "string"
+      },
+      "Size Medium": {
+        "value": "{Typography Primitives.Scale 03}",
+        "type": "float"
+      },
+      "Font Weight Regular": {
+        "value": "{Typography Primitives.Weight Regular}",
+        "type": "float"
+      },
+      "Size Large": {
+        "value": "{Typography Primitives.Scale 04}",
+        "type": "float"
+      },
+      "Size Small": {
+        "value": "{Typography Primitives.Scale 02}",
+        "type": "float"
+      },
+      "Font Weight Strong": {
+        "value": "{Typography Primitives.Weight Semibold}",
+        "type": "float"
+      },
+      "Font Style Italic": {
+        "value": "{Typography Primitives.Weight Regular Italic}",
+        "type": "string"
+      }
+    },
+    "Code": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Mono}",
+        "type": "string"
+      },
+      "Size Base": {
+        "value": "{Typography.Body.Size Medium}",
+        "type": "float"
+      },
+      "Font Weight": {
+        "value": "{Typography.Body.Font Weight Regular}",
+        "type": "float"
+      },
+      "Size Large": {
+        "value": "{Typography.Body.Size Large}",
+        "type": "float"
+      },
+      "Size Small": {
+        "value": "{Typography.Body.Size Small}",
+        "type": "float"
+      }
+    },
+    "Heading": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Sans}",
+        "type": "string"
+      },
+      "Size Base": {
+        "value": "{Typography Primitives.Scale 05}",
+        "type": "float"
+      },
+      "Font Weight": {
+        "value": "{Typography Primitives.Weight Semibold}",
+        "type": "float"
+      },
+      "Size Large": {
+        "value": "{Typography Primitives.Scale 06}",
+        "type": "float"
+      },
+      "Size Small": {
+        "value": "{Typography Primitives.Scale 04}",
+        "type": "float"
+      }
+    },
+    "Title Hero": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Sans}",
+        "type": "string"
+      },
+      "Size": {
+        "value": "{Typography Primitives.Scale 10}",
+        "type": "float"
+      },
+      "Font Weight": {
+        "value": "{Typography Primitives.Weight Bold}",
+        "type": "float"
+      }
+    },
+    "Subheading": {
+      "Font Family": {
+        "value": "{Typography Primitives.Family Sans}",
+        "type": "string"
+      },
+      "Size Small": {
+        "value": "{Typography Primitives.Scale 03}",
+        "type": "float"
+      },
+      "Size Medium": {
+        "value": "{Typography Primitives.Scale 04}",
+        "type": "float"
+      },
+      "Size Large": {
+        "value": "{Typography Primitives.Scale 05}",
+        "type": "float"
+      },
+      "Font Weight": {
+        "value": "{Typography Primitives.Weight Regular}",
+        "type": "float"
+      }
+    }
+  }
+}

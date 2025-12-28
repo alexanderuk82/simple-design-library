@@ -1,0 +1,180 @@
+{
+  "Size": {
+    "Space": {
+      "0": {
+        "value": 0,
+        "type": "float"
+      },
+      "100": {
+        "value": 4,
+        "type": "float"
+      },
+      "150": {
+        "value": 6,
+        "type": "float"
+      },
+      "200": {
+        "value": 8,
+        "type": "float"
+      },
+      "300": {
+        "value": 12,
+        "type": "float"
+      },
+      "400": {
+        "value": 16,
+        "type": "float"
+      },
+      "600": {
+        "value": 24,
+        "type": "float"
+      },
+      "800": {
+        "value": 32,
+        "type": "float"
+      },
+      "1200": {
+        "value": 48,
+        "type": "float"
+      },
+      "1600": {
+        "value": 64,
+        "type": "float"
+      },
+      "2400": {
+        "value": 96,
+        "type": "float"
+      },
+      "4000": {
+        "value": 160,
+        "type": "float"
+      },
+      "Negative 100": {
+        "value": -4,
+        "type": "float"
+      },
+      "Negative 200": {
+        "value": -8,
+        "type": "float"
+      },
+      "Negative 300": {
+        "value": -12,
+        "type": "float"
+      },
+      "Negative 400": {
+        "value": -16,
+        "type": "float"
+      },
+      "Negative 600": {
+        "value": -24,
+        "type": "float"
+      },
+      "050": {
+        "value": 2,
+        "type": "float"
+      }
+    },
+    "Radius": {
+      "100": {
+        "value": 4,
+        "type": "float"
+      },
+      "200": {
+        "value": 8,
+        "type": "float"
+      },
+      "400": {
+        "value": 16,
+        "type": "float"
+      },
+      "Full": {
+        "value": 9999,
+        "type": "float"
+      }
+    },
+    "Depth": {
+      "0": {
+        "value": 0,
+        "type": "float"
+      },
+      "100": {
+        "value": 4,
+        "type": "float"
+      },
+      "200": {
+        "value": 8,
+        "type": "float"
+      },
+      "400": {
+        "value": 16,
+        "type": "float"
+      },
+      "800": {
+        "value": 32,
+        "type": "float"
+      },
+      "1200": {
+        "value": 48,
+        "type": "float"
+      },
+      "025": {
+        "value": 1,
+        "type": "float"
+      },
+      "Negative 025": {
+        "value": -1,
+        "type": "float"
+      },
+      "Negative 100": {
+        "value": -4,
+        "type": "float"
+      },
+      "Negative 200": {
+        "value": -8,
+        "type": "float"
+      },
+      "Negative 400": {
+        "value": -16,
+        "type": "float"
+      },
+      "Negative 800": {
+        "value": -32,
+        "type": "float"
+      },
+      "Negative 1200": {
+        "value": -48,
+        "type": "float"
+      }
+    },
+    "Stroke": {
+      "Border": {
+        "value": 1,
+        "type": "float"
+      },
+      "Focus Ring": {
+        "value": 2,
+        "type": "float"
+      }
+    },
+    "Blur": {
+      "100": {
+        "value": 4,
+        "type": "float"
+      }
+    },
+    "Icon": {
+      "Small": {
+        "value": 24,
+        "type": "float"
+      },
+      "Medium": {
+        "value": 32,
+        "type": "float"
+      },
+      "Large": {
+        "value": 40,
+        "type": "float"
+      }
+    }
+  }
+}
