@@ -31,7 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initHeaderScroll();
   initSmoothScroll();
+  initDynamicYear();
 });
+
+/* ========================================
+   Dynamic Year for Copyright
+   ======================================== */
+function initDynamicYear() {
+  const yearElements = document.querySelectorAll('.current-year');
+  const currentYear = new Date().getFullYear();
+  yearElements.forEach(el => {
+    el.textContent = currentYear;
+  });
+}
 
 /* ========================================
    Custom Cursor
