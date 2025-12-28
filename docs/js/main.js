@@ -243,6 +243,7 @@ function initCodeTabs() {
   const filename = document.getElementById('codeFilename');
   const codeSection = document.querySelector('.code-section');
   const scrollBar = document.getElementById('codeScrollBar');
+  const codeWindow = document.getElementById('codeWindow');
 
   if (!tabs.length || !codeContent || !codeSection) return;
 
@@ -310,7 +311,7 @@ document.body.innerHTML = app`
   let currentTabIndex = 0;
   let isAnimating = false;
 
-  // Function to switch tabs with animation
+  // Function to switch tabs with glitch animation
   function switchToTab(tabType, animate = true) {
     const example = codeExamples[tabType];
     if (!example || isAnimating) return;
@@ -320,18 +321,33 @@ document.body.innerHTML = app`
     const activeTab = document.querySelector(`.code-tab[data-tab="${tabType}"]`);
     if (activeTab) activeTab.classList.add('code-tab--active');
 
-    if (animate) {
+    if (animate && codeWindow) {
       isAnimating = true;
+
+      // Add glitch class for the effect
+      codeWindow.classList.add('glitching');
+
+      // Glitch effect timeline
       gsap.to(codeContent, {
         opacity: 0,
-        y: -10,
-        duration: 0.2,
+        duration: 0.15,
         onComplete: () => {
           codeContent.innerHTML = `<code>${example.code}</code>`;
           if (filename) filename.textContent = example.filename;
+
           gsap.fromTo(codeContent,
-            { opacity: 0, y: 10 },
-            { opacity: 1, y: 0, duration: 0.3, onComplete: () => { isAnimating = false; } }
+            { opacity: 0 },
+            {
+              opacity: 1,
+              duration: 0.2,
+              onComplete: () => {
+                // Remove glitch class after animation
+                setTimeout(() => {
+                  codeWindow.classList.remove('glitching');
+                  isAnimating = false;
+                }, 150);
+              }
+            }
           );
         }
       });
