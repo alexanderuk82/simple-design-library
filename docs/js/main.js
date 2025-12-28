@@ -373,10 +373,11 @@ document.body.innerHTML = app`
     // Pin the entire code layout while scrolling through tabs
     ScrollTrigger.create({
       trigger: codeSection,
-      start: 'top 80px',
-      end: '+=200%', // Scroll distance for the effect (3 tabs = enough scroll space)
+      start: 'top 100px',
+      end: '+=150%', // Reduced scroll distance for better visibility
       pin: codeLayout,
       pinSpacing: true,
+      anticipatePin: 1, // Smoother pin transition
       onUpdate: (self) => {
         const progress = self.progress;
 
