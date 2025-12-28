@@ -3,11 +3,25 @@
    GSAP Powered Animations
    ======================================== */
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
+  // Check if GSAP is loaded
+  if (typeof gsap === 'undefined') {
+    console.warn('GSAP not loaded');
+    return;
+  }
+
+  // Register plugins safely
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+  if (typeof ScrollToPlugin !== 'undefined') {
+    gsap.registerPlugin(ScrollToPlugin);
+  }
+  if (typeof TextPlugin !== 'undefined') {
+    gsap.registerPlugin(TextPlugin);
+  }
+
   initCursor();
   initThemeToggle();
   initNavigation();
@@ -16,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroAnimations();
   initScrollAnimations();
   initHeaderScroll();
+  initSmoothScroll();
 });
 
 /* ========================================
@@ -28,7 +43,7 @@ function initCursor() {
   if (!cursor || !follower) return;
 
   // Check for touch device
-  if ('ontouchstart' in window) {
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     cursor.style.display = 'none';
     follower.style.display = 'none';
     return;
@@ -45,13 +60,11 @@ function initCursor() {
 
   // Smooth cursor animation
   gsap.ticker.add(() => {
-    // Cursor follows immediately
     cursorX += (mouseX - cursorX) * 0.5;
     cursorY += (mouseY - cursorY) * 0.5;
     cursor.style.left = cursorX + 'px';
     cursor.style.top = cursorY + 'px';
 
-    // Follower has more lag
     followerX += (mouseX - followerX) * 0.15;
     followerY += (mouseY - followerY) * 0.15;
     follower.style.left = followerX + 'px';
@@ -66,7 +79,6 @@ function initThemeToggle() {
   const toggle = document.getElementById('themeToggle');
   const html = document.documentElement;
 
-  // Check for saved preference or system preference
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -78,15 +90,8 @@ function initThemeToggle() {
     html.classList.toggle('dark');
     const isDark = html.classList.contains('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-
-    // Animate theme change
-    gsap.to('body', {
-      duration: 0.3,
-      ease: 'power2.inOut'
-    });
   });
 
-  // Listen for system preference changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {
       html.classList.toggle('dark', e.matches);
@@ -106,7 +111,6 @@ function initNavigation() {
   let isOpen = false;
   let navTimeline = null;
 
-  // Create animation timeline
   function createNavTimeline() {
     const tl = gsap.timeline({ paused: true });
 
@@ -156,7 +160,6 @@ function initNavigation() {
 
   navTimeline = createNavTimeline();
 
-  // Toggle menu
   function toggleMenu() {
     isOpen = !isOpen;
 
@@ -172,55 +175,16 @@ function initNavigation() {
     }
   }
 
-  // Event listeners
   trigger.addEventListener('click', toggleMenu);
 
-  // Close on link click
   overlay.querySelectorAll('.nav-overlay__link, .nav-overlay__btn').forEach(link => {
     link.addEventListener('click', () => {
-      if (isOpen) {
-        toggleMenu();
-      }
+      if (isOpen) toggleMenu();
     });
   });
 
-  // Close on escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen) {
-      toggleMenu();
-    }
-  });
-
-  // Hover effect on links
-  const links = overlay.querySelectorAll('.nav-overlay__link');
-  links.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-      gsap.to(link.querySelector('.nav-overlay__link-text'), {
-        x: 10,
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-      gsap.to(link.querySelector('.nav-overlay__link-arrow'), {
-        opacity: 1,
-        x: 0,
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-    });
-
-    link.addEventListener('mouseleave', () => {
-      gsap.to(link.querySelector('.nav-overlay__link-text'), {
-        x: 0,
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-      gsap.to(link.querySelector('.nav-overlay__link-arrow'), {
-        opacity: 0,
-        x: -10,
-        duration: 0.3,
-        ease: 'power2.out'
-      });
-    });
+    if (e.key === 'Escape' && isOpen) toggleMenu();
   });
 }
 
@@ -228,22 +192,18 @@ function initNavigation() {
    Copy to Clipboard
    ======================================== */
 function initCopyButtons() {
-  // NPM install copy button
   const installCopyBtn = document.getElementById('copyInstall');
   if (installCopyBtn) {
     installCopyBtn.addEventListener('click', async () => {
-      const command = 'npm i simple-design-system';
-      await copyToClipboard(command, installCopyBtn);
+      await copyToClipboard('npm i simple-design-system', installCopyBtn);
     });
   }
 
-  // Code preview copy button
   const codeCopyBtn = document.getElementById('copyCode');
   if (codeCopyBtn) {
     codeCopyBtn.addEventListener('click', async () => {
       const codeContent = document.getElementById('codeContent');
-      const text = codeContent?.textContent || '';
-      await copyToClipboard(text, codeCopyBtn);
+      await copyToClipboard(codeContent?.textContent || '', codeCopyBtn);
     });
   }
 }
@@ -252,7 +212,6 @@ async function copyToClipboard(text, button) {
   try {
     await navigator.clipboard.writeText(text);
 
-    // Animate button
     if (button.classList.contains('hero__install-copy')) {
       button.classList.add('copied');
       setTimeout(() => button.classList.remove('copied'), 2000);
@@ -265,7 +224,6 @@ async function copyToClipboard(text, button) {
         <span>Copied!</span>
       `;
       button.style.color = '#22c55e';
-
       setTimeout(() => {
         button.innerHTML = originalHTML;
         button.style.color = '';
@@ -297,16 +255,9 @@ function initCodeTabs() {
       <span class="token-tag">&lt;Card.Header&gt;</span>
         <span class="token-tag">&lt;h2&gt;</span>Sign Up<span class="token-tag">&lt;/h2&gt;</span>
       <span class="token-tag">&lt;/Card.Header&gt;</span>
-
       <span class="token-tag">&lt;Card.Body&gt;</span>
-        <span class="token-tag">&lt;Input</span>
-          <span class="token-attr">label</span>=<span class="token-string">"Email"</span>
-          <span class="token-attr">type</span>=<span class="token-string">"email"</span>
-          <span class="token-attr">placeholder</span>=<span class="token-string">"you@example.com"</span>
-        <span class="token-tag">/&gt;</span>
-        <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-string">"primary"</span> <span class="token-attr">fullWidth</span><span class="token-tag">&gt;</span>
-          Continue
-        <span class="token-tag">&lt;/Button&gt;</span>
+        <span class="token-tag">&lt;Input</span> <span class="token-attr">label</span>=<span class="token-string">"Email"</span> <span class="token-tag">/&gt;</span>
+        <span class="token-tag">&lt;Button</span> <span class="token-attr">variant</span>=<span class="token-string">"primary"</span><span class="token-tag">&gt;</span>Continue<span class="token-tag">&lt;/Button&gt;</span>
       <span class="token-tag">&lt;/Card.Body&gt;</span>
     <span class="token-tag">&lt;/Card&gt;</span>
   )
@@ -319,44 +270,26 @@ function initCodeTabs() {
     <span class="token-tag">&lt;SdsCardHeader&gt;</span>
       <span class="token-tag">&lt;h2&gt;</span>Sign Up<span class="token-tag">&lt;/h2&gt;</span>
     <span class="token-tag">&lt;/SdsCardHeader&gt;</span>
-
     <span class="token-tag">&lt;SdsCardBody&gt;</span>
-      <span class="token-tag">&lt;SdsInput</span>
-        <span class="token-attr">label</span>=<span class="token-string">"Email"</span>
-        <span class="token-attr">type</span>=<span class="token-string">"email"</span>
-        <span class="token-attr">v-model</span>=<span class="token-string">"email"</span>
-      <span class="token-tag">/&gt;</span>
-      <span class="token-tag">&lt;SdsButton</span> <span class="token-attr">variant</span>=<span class="token-string">"primary"</span> <span class="token-attr">full-width</span><span class="token-tag">&gt;</span>
-        Continue
-      <span class="token-tag">&lt;/SdsButton&gt;</span>
+      <span class="token-tag">&lt;SdsInput</span> <span class="token-attr">label</span>=<span class="token-string">"Email"</span> <span class="token-tag">/&gt;</span>
+      <span class="token-tag">&lt;SdsButton&gt;</span>Continue<span class="token-tag">&lt;/SdsButton&gt;</span>
     <span class="token-tag">&lt;/SdsCardBody&gt;</span>
   <span class="token-tag">&lt;/SdsCard&gt;</span>
-<span class="token-tag">&lt;/template&gt;</span>
-
-<span class="token-tag">&lt;script setup&gt;</span>
-<span class="token-keyword">import</span> { ref } <span class="token-keyword">from</span> <span class="token-string">'vue'</span>
-<span class="token-keyword">const</span> email = <span class="token-function">ref</span>(<span class="token-string">''</span>)
-<span class="token-tag">&lt;/script&gt;</span>`
+<span class="token-tag">&lt;/template&gt;</span>`
     },
     vanilla: {
       filename: 'index.html',
       code: `<span class="token-comment">&lt;!-- Import CSS --&gt;</span>
 <span class="token-tag">&lt;link</span> <span class="token-attr">rel</span>=<span class="token-string">"stylesheet"</span>
-      <span class="token-attr">href</span>=<span class="token-string">"simple-design-system.css"</span><span class="token-tag">&gt;</span>
+      <span class="token-attr">href</span>=<span class="token-string">"simple-ds.css"</span><span class="token-tag">&gt;</span>
 
-<span class="token-comment">&lt;!-- Use components with classes --&gt;</span>
 <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card"</span><span class="token-tag">&gt;</span>
   <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card-header"</span><span class="token-tag">&gt;</span>
     <span class="token-tag">&lt;h2&gt;</span>Sign Up<span class="token-tag">&lt;/h2&gt;</span>
   <span class="token-tag">&lt;/div&gt;</span>
-
   <span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"sds-card-body"</span><span class="token-tag">&gt;</span>
-    <span class="token-tag">&lt;label</span> <span class="token-attr">class</span>=<span class="token-string">"sds-input-wrapper"</span><span class="token-tag">&gt;</span>
-      <span class="token-tag">&lt;span&gt;</span>Email<span class="token-tag">&lt;/span&gt;</span>
-      <span class="token-tag">&lt;input</span> <span class="token-attr">type</span>=<span class="token-string">"email"</span>
-             <span class="token-attr">class</span>=<span class="token-string">"sds-input"</span><span class="token-tag">&gt;</span>
-    <span class="token-tag">&lt;/label&gt;</span>
-    <span class="token-tag">&lt;button</span> <span class="token-attr">class</span>=<span class="token-string">"sds-btn sds-btn-primary"</span><span class="token-tag">&gt;</span>
+    <span class="token-tag">&lt;input</span> <span class="token-attr">class</span>=<span class="token-string">"sds-input"</span><span class="token-tag">&gt;</span>
+    <span class="token-tag">&lt;button</span> <span class="token-attr">class</span>=<span class="token-string">"sds-btn"</span><span class="token-tag">&gt;</span>
       Continue
     <span class="token-tag">&lt;/button&gt;</span>
   <span class="token-tag">&lt;/div&gt;</span>
@@ -366,28 +299,20 @@ function initCodeTabs() {
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // Update active tab
       tabs.forEach(t => t.classList.remove('code-tab--active'));
       tab.classList.add('code-tab--active');
 
-      // Get tab type
       const tabType = tab.dataset.tab;
       const example = codeExamples[tabType];
 
       if (example && codeContent) {
-        // Animate code change
         gsap.to(codeContent, {
           opacity: 0,
-          y: 10,
-          duration: 0.2,
+          duration: 0.15,
           onComplete: () => {
             codeContent.innerHTML = `<code>${example.code}</code>`;
             if (filename) filename.textContent = example.filename;
-            gsap.to(codeContent, {
-              opacity: 1,
-              y: 0,
-              duration: 0.3
-            });
+            gsap.to(codeContent, { opacity: 1, duration: 0.2 });
           }
         });
       }
@@ -399,62 +324,16 @@ function initCodeTabs() {
    Hero Animations
    ======================================== */
 function initHeroAnimations() {
-  const heroTimeline = gsap.timeline({
-    defaults: { ease: 'power3.out' }
-  });
+  const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-  // Badge animation
-  heroTimeline.from('.hero__badge', {
-    opacity: 0,
-    y: 30,
-    duration: 0.8
-  });
-
-  // Title animation - split lines
-  heroTimeline.from('.hero__title-line', {
-    opacity: 0,
-    y: 60,
-    rotationX: -30,
-    duration: 1,
-    stagger: 0.15
-  }, '-=0.4');
-
-  // Subtitle
-  heroTimeline.from('.hero__subtitle', {
-    opacity: 0,
-    y: 30,
-    duration: 0.8
-  }, '-=0.5');
-
-  // CTA elements
-  heroTimeline.from('.hero__install', {
-    opacity: 0,
-    y: 30,
-    duration: 0.6
-  }, '-=0.3');
-
-  heroTimeline.from('.hero__buttons', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6
-  }, '-=0.3');
-
-  // Showcase cards with stagger
-  heroTimeline.from('.showcase-card', {
-    opacity: 0,
-    y: 100,
-    rotation: 10,
-    duration: 1,
-    stagger: 0.15,
-    ease: 'power4.out'
-  }, '-=0.8');
-
-  // Scroll indicator
-  heroTimeline.from('.hero__scroll', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6
-  }, '-=0.4');
+  heroTimeline
+    .from('.hero__badge', { opacity: 0, y: 30, duration: 0.8 })
+    .from('.hero__title-line', { opacity: 0, y: 60, duration: 1, stagger: 0.15 }, '-=0.4')
+    .from('.hero__subtitle', { opacity: 0, y: 30, duration: 0.8 }, '-=0.5')
+    .from('.hero__install', { opacity: 0, y: 30, duration: 0.6 }, '-=0.3')
+    .from('.hero__buttons', { opacity: 0, y: 20, duration: 0.6 }, '-=0.3')
+    .from('.showcase-card', { opacity: 0, y: 100, rotation: 10, duration: 1, stagger: 0.15, ease: 'power4.out' }, '-=0.8')
+    .from('.hero__scroll', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4');
 
   // Floating animation for showcase cards
   document.querySelectorAll('.showcase-card').forEach((card, i) => {
@@ -469,173 +348,127 @@ function initHeroAnimations() {
   });
 
   // Orb animations
-  gsap.to('.hero__orb--1', {
-    x: 50,
-    y: -30,
-    duration: 10,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  });
-
-  gsap.to('.hero__orb--2', {
-    x: -40,
-    y: 40,
-    duration: 12,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  });
-
-  gsap.to('.hero__orb--3', {
-    scale: 1.3,
-    duration: 8,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  });
+  gsap.to('.hero__orb--1', { x: 50, y: -30, duration: 10, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to('.hero__orb--2', { x: -40, y: 40, duration: 12, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to('.hero__orb--3', { scale: 1.3, duration: 8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 }
 
 /* ========================================
    Scroll Animations
    ======================================== */
 function initScrollAnimations() {
-  // Components section
-  gsap.from('.component-card', {
-    scrollTrigger: {
-      trigger: '.components__grid',
+  // Check if ScrollTrigger is available
+  if (typeof ScrollTrigger === 'undefined') {
+    console.warn('ScrollTrigger not available');
+    return;
+  }
+
+  // Component cards animation
+  const componentCards = document.querySelectorAll('.component-card');
+  if (componentCards.length) {
+    gsap.set(componentCards, { opacity: 1, y: 0 }); // Set initial visible state
+
+    ScrollTrigger.batch(componentCards, {
+      start: 'top 85%',
+      onEnter: (batch) => {
+        gsap.fromTo(batch,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+        );
+      },
+      once: true
+    });
+  }
+
+  // Feature blocks animation
+  const featureBlocks = document.querySelectorAll('.feature-block');
+  if (featureBlocks.length) {
+    gsap.set(featureBlocks, { opacity: 1, y: 0 }); // Set initial visible state
+
+    ScrollTrigger.batch(featureBlocks, {
+      start: 'top 85%',
+      onEnter: (batch) => {
+        gsap.fromTo(batch,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+        );
+      },
+      once: true
+    });
+  }
+
+  // Code section animation
+  const codeInfo = document.querySelector('.code-section__info');
+  const codeWindow = document.querySelector('.code-window');
+  const codeLivePreview = document.querySelector('.code-live-preview');
+
+  if (codeInfo) {
+    gsap.set(codeInfo, { opacity: 1, x: 0 });
+    ScrollTrigger.create({
+      trigger: codeInfo,
       start: 'top 80%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 60,
-    duration: 0.8,
-    stagger: 0.1
-  });
+      onEnter: () => {
+        gsap.fromTo(codeInfo, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6 });
+      },
+      once: true
+    });
+  }
 
-  // Features section
-  gsap.from('.feature-block', {
-    scrollTrigger: {
-      trigger: '.features__grid',
+  if (codeWindow) {
+    gsap.set(codeWindow, { opacity: 1, y: 0 });
+    ScrollTrigger.create({
+      trigger: codeWindow,
       start: 'top 80%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 50,
-    duration: 0.7,
-    stagger: 0.1
-  });
+      onEnter: () => {
+        gsap.fromTo(codeWindow, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7 });
+      },
+      once: true
+    });
+  }
 
-  // Animate feature stats
-  document.querySelectorAll('.feature-block__stat-value').forEach(stat => {
-    const text = stat.textContent;
-    const hasPercent = text.includes('%');
-    const hasPlus = text.includes('+');
-    const number = parseInt(text.replace(/[^0-9]/g, ''));
-
-    if (!isNaN(number)) {
-      ScrollTrigger.create({
-        trigger: stat,
-        start: 'top 85%',
-        onEnter: () => {
-          gsap.fromTo(stat,
-            { textContent: '0' },
-            {
-              textContent: number,
-              duration: 2,
-              ease: 'power2.out',
-              snap: { textContent: 1 },
-              onUpdate: function() {
-                const current = Math.round(this.targets()[0].textContent);
-                stat.textContent = current + (hasPercent ? '%' : hasPlus ? '+' : '');
-              }
-            }
-          );
-        },
-        once: true
-      });
-    }
-  });
-
-  // Code section
-  gsap.from('.code-section__info', {
-    scrollTrigger: {
-      trigger: '.code-section',
-      start: 'top 70%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    x: -50,
-    duration: 0.8
-  });
-
-  gsap.from('.code-window', {
-    scrollTrigger: {
-      trigger: '.code-section__preview',
-      start: 'top 75%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 60,
-    duration: 0.9
-  });
-
-  gsap.from('.code-live-preview', {
-    scrollTrigger: {
-      trigger: '.code-live-preview',
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.8
-  });
+  if (codeLivePreview) {
+    gsap.set(codeLivePreview, { opacity: 1, y: 0 });
+    ScrollTrigger.create({
+      trigger: codeLivePreview,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.fromTo(codeLivePreview, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6 });
+      },
+      once: true
+    });
+  }
 
   // CTA section
-  gsap.from('.cta-box', {
-    scrollTrigger: {
-      trigger: '.cta-section',
-      start: 'top 75%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 50,
-    scale: 0.95,
-    duration: 0.8
-  });
+  const ctaBox = document.querySelector('.cta-box');
+  if (ctaBox) {
+    gsap.set(ctaBox, { opacity: 1, y: 0 });
+    ScrollTrigger.create({
+      trigger: ctaBox,
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.fromTo(ctaBox, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7 });
+      },
+      once: true
+    });
+  }
 
   // Section headers
   document.querySelectorAll('.section-header').forEach(header => {
-    gsap.from(header.querySelectorAll('.section-header__tag, .section-header__title, .section-header__desc'), {
-      scrollTrigger: {
-        trigger: header,
-        start: 'top 80%',
-        toggleActions: 'play none none none'
+    const elements = header.querySelectorAll('.section-header__tag, .section-header__title, .section-header__desc');
+    gsap.set(elements, { opacity: 1, y: 0 });
+
+    ScrollTrigger.create({
+      trigger: header,
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.fromTo(elements,
+          { opacity: 0, y: 25 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }
+        );
       },
-      opacity: 0,
-      y: 30,
-      duration: 0.7,
-      stagger: 0.1
+      once: true
     });
   });
-
-  // Marquee speed on scroll
-  const marquee = document.querySelector('.marquee__track');
-  if (marquee) {
-    ScrollTrigger.create({
-      trigger: '.marquee',
-      start: 'top bottom',
-      end: 'bottom top',
-      onUpdate: (self) => {
-        const velocity = self.getVelocity();
-        const speedUp = gsap.utils.clamp(-2, 2, velocity / 1000);
-        gsap.to(marquee, {
-          timeScale: 1 + speedUp,
-          duration: 0.5
-        });
-      }
-    });
-  }
 }
 
 /* ========================================
@@ -645,38 +478,50 @@ function initHeaderScroll() {
   const header = document.getElementById('header');
   if (!header) return;
 
-  ScrollTrigger.create({
-    start: 'top -100',
-    onUpdate: (self) => {
-      if (self.direction === 1 && window.scrollY > 100) {
-        header.classList.add('scrolled');
-      } else if (window.scrollY <= 100) {
-        header.classList.remove('scrolled');
-      }
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
     }
-  });
+
+    lastScroll = currentScroll;
+  }, { passive: true });
 }
 
 /* ========================================
    Smooth Scroll for Anchor Links
    ======================================== */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', (e) => {
-    const href = anchor.getAttribute('href');
-    if (href === '#') return;
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (href === '#') return;
 
-    e.preventDefault();
-    const target = document.querySelector(href);
+      e.preventDefault();
+      const target = document.querySelector(href);
 
-    if (target) {
-      const headerHeight = 80;
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+      if (target) {
+        const headerHeight = 80;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-      gsap.to(window, {
-        scrollTo: { y: targetPosition, autoKill: false },
-        duration: 1,
-        ease: 'power3.inOut'
-      });
-    }
+        if (typeof ScrollToPlugin !== 'undefined') {
+          gsap.to(window, {
+            scrollTo: { y: targetPosition, autoKill: false },
+            duration: 1,
+            ease: 'power3.inOut'
+          });
+        } else {
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
   });
-});
+}

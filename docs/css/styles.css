@@ -2244,24 +2244,73 @@ input {
     padding: var(--space-3xl) 0;
   }
 
+  .code-section__layout {
+    gap: var(--space-xl);
+  }
+
+  .code-section__info {
+    position: static;
+  }
+
   .code-section__tabs {
     width: 100%;
+    display: flex;
   }
 
   .code-tab {
     flex: 1;
     text-align: center;
-    padding: var(--space-sm) var(--space-sm);
-    font-size: 0.8rem;
+    padding: var(--space-sm) var(--space-xs);
+    font-size: 0.75rem;
+  }
+
+  .code-section__preview {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .code-window {
+    border-radius: var(--radius-lg);
+    max-width: 100%;
   }
 
   .code-window__content {
     padding: var(--space-md);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .code-window__content code {
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .code-window__header {
     padding: var(--space-sm) var(--space-md);
+  }
+
+  .code-window__filename {
+    font-size: 0.7rem;
+  }
+
+  .code-window__copy {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.7rem;
+  }
+
+  .code-window__copy span {
+    display: none;
+  }
+
+  .code-live-preview {
+    padding: var(--space-md);
+  }
+
+  .live-card {
+    max-width: 100%;
   }
 
   /* CTA mobile */
