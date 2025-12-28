@@ -1,0 +1,20 @@
+{
+  "Responsive": {
+    "Device Width": {
+      "value": 1200,
+      "type": "float"
+    },
+    "Root Font Size": {
+      "value": "{Typography Primitives.Scale 03}",
+      "type": "float"
+    },
+    "Scale": {
+      "value": 1,
+      "type": "float"
+    },
+    "Device": {
+      "value": "desktop",
+      "type": "string"
+    }
+  }
+}

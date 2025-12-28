@@ -1,0 +1,128 @@
+{
+  "Typography Primitives": {
+    "Weight Thin": {
+      "value": 100,
+      "type": "float"
+    },
+    "Weight Extra Light": {
+      "value": 200,
+      "type": "float"
+    },
+    "Weight Light": {
+      "value": 300,
+      "type": "float"
+    },
+    "Weight Regular": {
+      "value": 400,
+      "type": "float"
+    },
+    "Weight Medium": {
+      "value": 500,
+      "type": "float"
+    },
+    "Weight Semibold": {
+      "value": 600,
+      "type": "float"
+    },
+    "Weight Bold": {
+      "value": 700,
+      "type": "float"
+    },
+    "Weight Extra Bold": {
+      "value": 800,
+      "type": "float"
+    },
+    "Weight Black": {
+      "value": 900,
+      "type": "float"
+    },
+    "Scale 10": {
+      "value": 72,
+      "type": "float"
+    },
+    "Scale 09": {
+      "value": 64,
+      "type": "float"
+    },
+    "Scale 08": {
+      "value": 48,
+      "type": "float"
+    },
+    "Scale 07": {
+      "value": 40,
+      "type": "float"
+    },
+    "Scale 06": {
+      "value": 32,
+      "type": "float"
+    },
+    "Scale 05": {
+      "value": 24,
+      "type": "float"
+    },
+    "Scale 04": {
+      "value": 20,
+      "type": "float"
+    },
+    "Scale 03": {
+      "value": 16,
+      "type": "float"
+    },
+    "Scale 02": {
+      "value": 14,
+      "type": "float"
+    },
+    "Scale 01": {
+      "value": 12,
+      "type": "float"
+    },
+    "Family Sans": {
+      "value": "Inter",
+      "type": "string"
+    },
+    "Family Serif": {
+      "value": "Noto Serif",
+      "type": "string"
+    },
+    "Family Mono": {
+      "value": "Roboto Mono",
+      "type": "string"
+    },
+    "Weight Light Italic": {
+      "value": "Light Italic",
+      "type": "string"
+    },
+    "Weight Regular Italic": {
+      "value": "Italic",
+      "type": "string"
+    },
+    "Weight Bold Italic": {
+      "value": "Bold Italic",
+      "type": "string"
+    },
+    "Weight Thin Italic": {
+      "value": "Thin Italic",
+      "type": "string"
+    },
+    "Weight Extralight Italic": {
+      "value": "Extra Light Italic",
+      "type": "string"
+    },
+    "Weight Medium Italic": {
+      "value": "Medium Italic",
+      "type": "string"
+    },
+    "Weight Semibold Italic": {
+      "value": "Semi Bold Italic",
+      "type": "string"
+    },
+    "Weight Extra Bold Italic": {
+      "value": "Extra Bold Italic",
+      "type": "string"
+    },
+    "Weight Black Italic": {
+      "value": "Black Italic",
+      "type": "string"
+    }
+  }
+}

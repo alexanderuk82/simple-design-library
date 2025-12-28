@@ -1,0 +1,661 @@
+{
+  "Color": {
+    "Background": {
+      "Default": {
+        "Default": {
+          "value": "{Color Primitives.Gray.900}",
+          "type": "color",
+          "description": "Bg/Default/Default"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Gray.800}",
+          "type": "color",
+          "description": "Bg/Default/Secondary"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Gray.600}",
+          "type": "color",
+          "description": "Bg/Default/Tertiary"
+        },
+        "Default Hover": {
+          "value": "{Color Primitives.Gray.700}",
+          "type": "color",
+          "description": "Bg/Default/Default Hover"
+        },
+        "Secondary Hover": {
+          "value": "{Color Primitives.Gray.900}",
+          "type": "color",
+          "description": "Bg/Default/Secondary Hover"
+        },
+        "Tertiary Hover": {
+          "value": "{Color Primitives.Gray.700}",
+          "type": "color",
+          "description": "Bg/Default/Tertiary Hover"
+        }
+      },
+      "Brand": {
+        "Default": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color",
+          "description": "Bg/Brand/Default"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Brand.600}",
+          "type": "color",
+          "description": "Bg/Brand/Secondary"
+        },
+        "Hover": {
+          "value": "{Color Primitives.Brand.300}",
+          "type": "color",
+          "description": "Bg/Brand/Hover"
+        },
+        "Secondary Hover": {
+          "value": "{Color Primitives.Brand.500}",
+          "type": "color",
+          "description": "Bg/Brand/Secondary Hover"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Brand.600}",
+          "type": "color",
+          "description": "Bg/Brand/Tertiary"
+        },
+        "Tertiary Hover": {
+          "value": "{Color Primitives.Brand.800}",
+          "type": "color",
+          "description": "Bg/Brand/Tertiary Hover"
+        }
+      },
+      "Positive": {
+        "Default": {
+          "value": "{Color Primitives.Green.700}",
+          "type": "color",
+          "description": "Bg/Positive/Default"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Green.800}",
+          "type": "color",
+          "description": "Bg/Positive/Secondary"
+        },
+        "Hover": {
+          "value": "{Color Primitives.Green.800}",
+          "type": "color",
+          "description": "Bg/Positive/Hover"
+        },
+        "Secondary Hover": {
+          "value": "{Color Primitives.Green.900}",
+          "type": "color",
+          "description": "Bg/Positive/Secondary Hover"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Green.900}",
+          "type": "color",
+          "description": "Bg/Positive/Tertiary"
+        },
+        "Tertiary Hover": {
+          "value": "{Color Primitives.Green.1000}",
+          "type": "color",
+          "description": "Bg/Positive/Tertiary Hover"
+        }
+      },
+      "Warning": {
+        "Default": {
+          "value": "{Color Primitives.Yellow.400}",
+          "type": "color",
+          "description": "Bg/Warning/Default"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Yellow.800}",
+          "type": "color",
+          "description": "Bg/Warning/Secondary"
+        },
+        "Hover": {
+          "value": "{Color Primitives.Yellow.500}",
+          "type": "color",
+          "description": "Bg/Warning/Hover"
+        },
+        "Secondary Hover": {
+          "value": "{Color Primitives.Yellow.900}",
+          "type": "color",
+          "description": "Bg/Warning/Secondary Hover"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Yellow.900}",
+          "type": "color",
+          "description": "Bg/Warning/Tertiary"
+        },
+        "Tertiary Hover": {
+          "value": "{Color Primitives.Yellow.1000}",
+          "type": "color",
+          "description": "Bg/Warning/Tertiary Hover"
+        }
+      },
+      "Danger": {
+        "Default": {
+          "value": "{Color Primitives.Red.600}",
+          "type": "color",
+          "description": "Bg/Danger/Default"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Red.800}",
+          "type": "color",
+          "description": "Bg/Danger/Secondary"
+        },
+        "Hover": {
+          "value": "{Color Primitives.Red.700}",
+          "type": "color",
+          "description": "Bg/Danger/Hover"
+        },
+        "Secondary Hover": {
+          "value": "{Color Primitives.Red.900}",
+          "type": "color",
+          "description": "Bg/Danger/Secondary Hover"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Red.900}",
+          "type": "color",
+          "description": "Bg/Danger/Tertiary"
+        },
+        "Tertiary Hover": {
+          "value": "{Color Primitives.Red.1000}",
+          "type": "color",
+          "description": "Bg/Danger/Tertiary Hover"
+        }
+      },
+      "Disabled": {
+        "Default": {
+          "value": "{Color Primitives.Gray.700}",
+          "type": "color",
+          "description": "Bg/Disabled/Default"
+        }
+      },
+      "Utilities": {
+        "Scrim": {
+          "value": "#000000cc",
+          "type": "color",
+          "description": "Bg/Utilities/Scrim"
+        },
+        "Overlay": {
+          "value": "#00000080",
+          "type": "color",
+          "description": "Bg/Utilities/Overlay"
+        },
+        "Blanket": {
+          "value": "#000000b3",
+          "type": "color",
+          "description": "Bg/Utilities/Blanket"
+        },
+        "Measurement": {
+          "value": "{Color Primitives.Pink.800}",
+          "type": "color",
+          "description": "Bg/Utilities/Measurement"
+        }
+      },
+      "Neutral": {
+        "Default": {
+          "value": "{Color Primitives.Slate.400}",
+          "type": "color",
+          "description": "Bg/Neutral/Default"
+        },
+        "Hover": {
+          "value": "{Color Primitives.Slate.500}",
+          "type": "color",
+          "description": "Bg/Neutral/Hover"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Slate.900}",
+          "type": "color",
+          "description": "Bg/Neutral/Secondary"
+        },
+        "Secondary Hover": {
+          "value": "{Color Primitives.Slate.1000}",
+          "type": "color",
+          "description": "Bg/Neutral/Secondary Hover"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Slate.900}",
+          "type": "color",
+          "description": "Bg/Neutral/Tertiary"
+        },
+        "Tertiary Hover": {
+          "value": "{Color Primitives.Slate.1000}",
+          "type": "color",
+          "description": "Bg/Neutral/Tertiary Hover"
+        }
+      }
+    },
+    "Text": {
+      "Default": {
+        "Default": {
+          "value": "{Color Primitives.White.1000}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.White.500}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.White.400}",
+          "type": "color"
+        }
+      },
+      "Brand": {
+        "Default": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Brand.300}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Brand.400}",
+          "type": "color"
+        },
+        "On Brand": {
+          "value": "{Color Primitives.Brand.900}",
+          "type": "color"
+        },
+        "On Brand Secondary": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        },
+        "On Brand Tertiary": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        }
+      },
+      "Positive": {
+        "Default": {
+          "value": "{Color Primitives.Green.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Green.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Green.600}",
+          "type": "color"
+        },
+        "On Positive": {
+          "value": "{Color Primitives.Green.100}",
+          "type": "color"
+        },
+        "On Positive Secondary": {
+          "value": "{Color Primitives.Green.100}",
+          "type": "color"
+        },
+        "On Positive Tertiary": {
+          "value": "{Color Primitives.Green.100}",
+          "type": "color"
+        }
+      },
+      "Warning": {
+        "Default": {
+          "value": "{Color Primitives.Yellow.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Yellow.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Yellow.600}",
+          "type": "color"
+        },
+        "On Warning": {
+          "value": "{Color Primitives.Yellow.1000}",
+          "type": "color"
+        },
+        "On Warning Secondary": {
+          "value": "{Color Primitives.Yellow.100}",
+          "type": "color"
+        },
+        "On Warning Tertiary": {
+          "value": "{Color Primitives.Yellow.100}",
+          "type": "color"
+        }
+      },
+      "Danger": {
+        "Default": {
+          "value": "{Color Primitives.Red.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Red.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Red.500}",
+          "type": "color"
+        },
+        "On Danger": {
+          "value": "{Color Primitives.Red.100}",
+          "type": "color"
+        },
+        "On Danger Secondary": {
+          "value": "{Color Primitives.Red.100}",
+          "type": "color"
+        },
+        "On Danger Tertiary": {
+          "value": "{Color Primitives.Red.100}",
+          "type": "color"
+        }
+      },
+      "Disabled": {
+        "Default": {
+          "value": "{Color Primitives.Gray.500}",
+          "type": "color"
+        },
+        "On Disabled": {
+          "value": "{Color Primitives.Gray.400}",
+          "type": "color"
+        }
+      },
+      "Utilities": {
+        "Text On Overlay": {
+          "value": "{Color Primitives.White.1000}",
+          "type": "color"
+        },
+        "Text On Measurement": {
+          "value": "{Color Primitives.Pink.200}",
+          "type": "color"
+        }
+      },
+      "Neutral": {
+        "Default": {
+          "value": "{Color Primitives.Slate.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Slate.300}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Slate.400}",
+          "type": "color"
+        },
+        "On Neutral": {
+          "value": "{Color Primitives.Slate.1000}",
+          "type": "color"
+        },
+        "On Neutral Secondary": {
+          "value": "{Color Primitives.Slate.100}",
+          "type": "color"
+        },
+        "On Neutral Tertiary": {
+          "value": "{Color Primitives.Slate.100}",
+          "type": "color"
+        }
+      }
+    },
+    "Icon": {
+      "Default": {
+        "Default": {
+          "value": "{Color Primitives.White.1000}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.White.500}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.White.400}",
+          "type": "color"
+        }
+      },
+      "Brand": {
+        "Default": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Brand.300}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Brand.400}",
+          "type": "color"
+        },
+        "On Brand": {
+          "value": "{Color Primitives.Brand.900}",
+          "type": "color"
+        },
+        "On Brand Secondary": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        },
+        "On Brand Tertiary": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        }
+      },
+      "Positive": {
+        "Default": {
+          "value": "{Color Primitives.Green.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Green.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Green.600}",
+          "type": "color"
+        },
+        "On Positive": {
+          "value": "{Color Primitives.Green.100}",
+          "type": "color"
+        },
+        "On Positive Secondary": {
+          "value": "{Color Primitives.Green.100}",
+          "type": "color"
+        },
+        "On Positive Tertiary": {
+          "value": "{Color Primitives.Green.100}",
+          "type": "color"
+        }
+      },
+      "Warning": {
+        "Default": {
+          "value": "{Color Primitives.Yellow.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Yellow.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Yellow.600}",
+          "type": "color"
+        },
+        "On Warning": {
+          "value": "{Color Primitives.Yellow.1000}",
+          "type": "color"
+        },
+        "On Warning Secondary": {
+          "value": "{Color Primitives.Yellow.100}",
+          "type": "color"
+        },
+        "On Warning Tertiary": {
+          "value": "{Color Primitives.Yellow.100}",
+          "type": "color"
+        }
+      },
+      "Danger": {
+        "Default": {
+          "value": "{Color Primitives.Red.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Red.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Red.500}",
+          "type": "color"
+        },
+        "On Danger": {
+          "value": "{Color Primitives.Red.100}",
+          "type": "color"
+        },
+        "On Danger Secondary": {
+          "value": "{Color Primitives.Red.100}",
+          "type": "color"
+        },
+        "On Danger Tertiary": {
+          "value": "{Color Primitives.Red.100}",
+          "type": "color"
+        }
+      },
+      "Disabled": {
+        "Default": {
+          "value": "{Color Primitives.Gray.500}",
+          "type": "color"
+        },
+        "On Disabled": {
+          "value": "{Color Primitives.Gray.400}",
+          "type": "color"
+        }
+      },
+      "Neutral": {
+        "Default": {
+          "value": "{Color Primitives.Slate.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Slate.300}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Slate.400}",
+          "type": "color"
+        },
+        "On Neutral": {
+          "value": "{Color Primitives.Slate.1000}",
+          "type": "color"
+        },
+        "On Neutral Secondary": {
+          "value": "{Color Primitives.Slate.100}",
+          "type": "color"
+        },
+        "On Neutral Tertiary": {
+          "value": "{Color Primitives.Slate.100}",
+          "type": "color"
+        }
+      },
+      "Utilities": {
+        "Icon On Measurement": {
+          "value": "{Color Primitives.Pink.200}",
+          "type": "color"
+        },
+        "Icon": {
+          "value": "{Color Primitives.Pink.400}",
+          "type": "color"
+        }
+      }
+    },
+    "Border": {
+      "Default": {
+        "Default": {
+          "value": "{Color Primitives.Gray.600}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Gray.500}",
+          "type": "color"
+        },
+        "tertiary": {
+          "value": "{Color Primitives.Gray.400}",
+          "type": "color"
+        }
+      },
+      "Brand": {
+        "Default": {
+          "value": "{Color Primitives.Brand.100}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Brand.300}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Brand.400}",
+          "type": "color"
+        }
+      },
+      "Positive": {
+        "Default": {
+          "value": "{Color Primitives.Green.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Green.400}",
+          "type": "color"
+        },
+        "tertiary": {
+          "value": "{Color Primitives.Green.600}",
+          "type": "color"
+        }
+      },
+      "Warning": {
+        "Default": {
+          "value": "{Color Primitives.Yellow.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Yellow.400}",
+          "type": "color"
+        },
+        "tertiary": {
+          "value": "{Color Primitives.Yellow.600}",
+          "type": "color"
+        }
+      },
+      "Danger": {
+        "Default": {
+          "value": "{Color Primitives.Red.200}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Red.400}",
+          "type": "color"
+        },
+        "Tertiary": {
+          "value": "{Color Primitives.Red.500}",
+          "type": "color"
+        }
+      },
+      "Disabled": {
+        "default": {
+          "value": "{Color Primitives.Gray.600}",
+          "type": "color"
+        }
+      },
+      "Utilities": {
+        "Measurement": {
+          "value": "{Color Primitives.Pink.600}",
+          "type": "color"
+        },
+        "Swatch": {
+          "value": "#ffffff3d",
+          "type": "color"
+        }
+      },
+      "Neutral": {
+        "Default": {
+          "value": "{Color Primitives.Slate.100}",
+          "type": "color"
+        },
+        "Secondary": {
+          "value": "{Color Primitives.Slate.500}",
+          "type": "color"
+        },
+        "tertiary": {
+          "value": "{Color Primitives.Slate.600}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}
