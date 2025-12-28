@@ -611,6 +611,87 @@
       margin-bottom: var(--space-md);
     }
 
+    /* Effects Section Styles */
+    .docs__effects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__effects-grid--blur {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .docs__effect-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: transform var(--duration-fast);
+    }
+
+    .docs__effect-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .docs__effect-card--inset {
+      background: var(--bg-subtle);
+    }
+
+    .docs__effect-label {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .docs__blur-demo {
+      position: relative;
+      height: 140px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .docs__blur-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, var(--accent) 0%, transparent 50%),
+        linear-gradient(225deg, #f59e0b 0%, transparent 50%),
+        linear-gradient(315deg, #10b981 0%, transparent 50%),
+        linear-gradient(45deg, #ec4899 0%, transparent 50%);
+      background-color: var(--bg-subtle);
+    }
+
+    .docs__blur-card {
+      position: absolute;
+      inset: var(--space-md);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .docs__blur-card .docs__effect-label {
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .docs__blur-card .docs__inline-code {
+      background: rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.2);
+      color: white;
+    }
+
     /* Simple Footer for Docs */
     .docs-footer {
       margin-top: var(--space-4xl);
@@ -1250,6 +1331,216 @@
                 <div class="docs__spacing-bar" style="width: 96px;"></div>
                 <span class="docs__spacing-label">96px</span>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== EFFECTS ========== -->
+        <section class="docs__section" id="effects">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Design Tokens</span>
+            <h2 class="docs__section-title">Effects</h2>
+            <p class="docs__section-desc">
+              Consistent shadow and blur tokens for depth, elevation, and visual hierarchy.
+              All effects are customizable via CSS variables.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Drop Shadows</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Use drop shadows to create depth and indicate elevation levels. Larger shadows suggest elements are "closer" to the user.
+            </p>
+            <div class="docs__effects-grid">
+              <div class="docs__effect-card" style="box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);">
+                <div class="docs__effect-label">--shadow-xs</div>
+                <code class="docs__inline-code">0 1px 2px 0 rgba(0,0,0,0.05)</code>
+              </div>
+              <div class="docs__effect-card" style="box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-sm</div>
+                <code class="docs__inline-code">0 1px 3px rgba(0,0,0,0.1)</code>
+              </div>
+              <div class="docs__effect-card" style="box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-md</div>
+                <code class="docs__inline-code">0 4px 6px rgba(0,0,0,0.1)</code>
+              </div>
+              <div class="docs__effect-card" style="box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-lg</div>
+                <code class="docs__inline-code">0 10px 15px rgba(0,0,0,0.1)</code>
+              </div>
+              <div class="docs__effect-card" style="box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-xl</div>
+                <code class="docs__inline-code">0 20px 25px rgba(0,0,0,0.1)</code>
+              </div>
+              <div class="docs__effect-card" style="box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+                <div class="docs__effect-label">--shadow-2xl</div>
+                <code class="docs__inline-code">0 25px 50px rgba(0,0,0,0.25)</code>
+              </div>
+            </div>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Using shadow tokens */</span>
+<span class="token-tag">.card</span> {
+  <span class="token-attr">box-shadow</span>: <span class="token-string">var(--shadow-md)</span>;
+}
+
+<span class="token-tag">.card:hover</span> {
+  <span class="token-attr">box-shadow</span>: <span class="token-string">var(--shadow-lg)</span>;
+}
+
+<span class="token-tag">.modal</span> {
+  <span class="token-attr">box-shadow</span>: <span class="token-string">var(--shadow-2xl)</span>;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Inner Shadows</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Inner shadows (inset) create the illusion of depth going into the surface. Perfect for inputs, wells, and pressed states.
+            </p>
+            <div class="docs__effects-grid">
+              <div class="docs__effect-card docs__effect-card--inset" style="box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-inner-xs</div>
+                <code class="docs__inline-code">inset 0 1px 2px</code>
+              </div>
+              <div class="docs__effect-card docs__effect-card--inset" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-inner-sm</div>
+                <code class="docs__inline-code">inset 0 2px 4px</code>
+              </div>
+              <div class="docs__effect-card docs__effect-card--inset" style="box-shadow: inset 0 4px 6px rgba(0,0,0,0.1);">
+                <div class="docs__effect-label">--shadow-inner-md</div>
+                <code class="docs__inline-code">inset 0 4px 6px</code>
+              </div>
+              <div class="docs__effect-card docs__effect-card--inset" style="box-shadow: inset 0 6px 10px rgba(0,0,0,0.15);">
+                <div class="docs__effect-label">--shadow-inner-lg</div>
+                <code class="docs__inline-code">inset 0 6px 10px</code>
+              </div>
+            </div>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Inner shadow for inputs */</span>
+<span class="token-tag">.input</span> {
+  <span class="token-attr">box-shadow</span>: <span class="token-string">var(--shadow-inner-sm)</span>;
+}
+
+<span class="token-comment">/* Pressed button state */</span>
+<span class="token-tag">.button:active</span> {
+  <span class="token-attr">box-shadow</span>: <span class="token-string">var(--shadow-inner-md)</span>;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Blur Effects</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Blur effects for glassmorphism, frosted backgrounds, and focus control. Use <code class="docs__inline-code">backdrop-filter</code> for background blur and <code class="docs__inline-code">filter</code> for element blur.
+            </p>
+            <div class="docs__effects-grid docs__effects-grid--blur">
+              <div class="docs__blur-demo">
+                <div class="docs__blur-bg"></div>
+                <div class="docs__blur-card" style="backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);">
+                  <div class="docs__effect-label">--blur-sm</div>
+                  <code class="docs__inline-code">blur(4px)</code>
+                </div>
+              </div>
+              <div class="docs__blur-demo">
+                <div class="docs__blur-bg"></div>
+                <div class="docs__blur-card" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
+                  <div class="docs__effect-label">--blur-md</div>
+                  <code class="docs__inline-code">blur(8px)</code>
+                </div>
+              </div>
+              <div class="docs__blur-demo">
+                <div class="docs__blur-bg"></div>
+                <div class="docs__blur-card" style="backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+                  <div class="docs__effect-label">--blur-lg</div>
+                  <code class="docs__inline-code">blur(16px)</code>
+                </div>
+              </div>
+              <div class="docs__blur-demo">
+                <div class="docs__blur-bg"></div>
+                <div class="docs__blur-card" style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+                  <div class="docs__effect-label">--blur-xl</div>
+                  <code class="docs__inline-code">blur(24px)</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Glassmorphism card */</span>
+<span class="token-tag">.glass-card</span> {
+  <span class="token-attr">background</span>: <span class="token-string">rgba(255, 255, 255, 0.1)</span>;
+  <span class="token-attr">backdrop-filter</span>: <span class="token-string">var(--blur-lg)</span>;
+  <span class="token-attr">-webkit-backdrop-filter</span>: <span class="token-string">var(--blur-lg)</span>;
+  <span class="token-attr">border</span>: <span class="token-string">1px solid rgba(255, 255, 255, 0.2)</span>;
+}
+
+<span class="token-comment">/* Frosted navigation */</span>
+<span class="token-tag">.nav</span> {
+  <span class="token-attr">backdrop-filter</span>: <span class="token-string">var(--blur-md)</span>;
+  <span class="token-attr">-webkit-backdrop-filter</span>: <span class="token-string">var(--blur-md)</span>;
+}
+
+<span class="token-comment">/* Layer blur (blurs the element itself) */</span>
+<span class="token-tag">.blurred-element</span> {
+  <span class="token-attr">filter</span>: <span class="token-string">var(--blur-sm)</span>;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Customizing Effects</h3>
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Override effect tokens with your own values */</span>
+<span class="token-tag">:root</span> {
+  <span class="token-comment">/* Custom colored shadows */</span>
+  <span class="token-attr">--shadow-md</span>: <span class="token-string">0 4px 14px rgba(99, 102, 241, 0.25)</span>;
+  <span class="token-attr">--shadow-lg</span>: <span class="token-string">0 10px 25px rgba(99, 102, 241, 0.3)</span>;
+
+  <span class="token-comment">/* Stronger blur for glass effects */</span>
+  <span class="token-attr">--blur-lg</span>: <span class="token-string">blur(20px)</span>;
+}</code></pre>
             </div>
           </div>
         </section>
