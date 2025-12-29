@@ -1,8 +1,26 @@
 <svg width="302" height="302" viewBox="0 0 302 302" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="302" height="302" rx="40" fill="#1F1F1F"/>
-<path d="M151.163 151.244C151.163 132.436 166.411 117.188 185.219 117.188C204.028 117.188 219.276 132.436 219.276 151.244C219.276 170.053 204.028 185.301 185.219 185.301C166.411 185.301 151.163 170.053 151.163 151.244Z" fill="#00B6FF"/>
-<path d="M83.0503 219.357C83.0503 200.548 98.2979 185.301 117.107 185.301H151.163V219.357C151.163 238.166 135.916 253.414 117.107 253.414C98.2979 253.414 83.0503 238.166 83.0503 219.357Z" fill="#24CB71"/>
-<path d="M151.163 49.075V117.188H185.22C204.029 117.188 219.276 101.94 219.276 83.1315C219.276 64.3226 204.029 49.075 185.22 49.075H151.163Z" fill="#FF7676"/>
-<path d="M83.0503 83.1315C83.0503 101.94 98.2979 117.188 117.107 117.188L151.163 117.188V49.075L117.107 49.075C98.2979 49.075 83.0503 64.3226 83.0503 83.1315Z" fill="#FF3737"/>
-<path d="M83.0503 151.244C83.0503 170.053 98.2979 185.301 117.107 185.301H151.163V117.188L117.107 117.188C98.2979 117.188 83.0503 132.436 83.0503 151.244Z" fill="#874FFF"/>
+  <!-- Background -->
+  <rect width="302" height="302" rx="40" fill="#1F1F1F"/>
+
+  <!-- D Letter - Modern geometric style with gradient accent -->
+  <defs>
+    <linearGradient id="accentGradient" x1="83" y1="49" x2="219" y2="253" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="accentGradient2" x1="151" y1="49" x2="219" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- D vertical bar -->
+  <rect x="83" y="49" width="44" height="204" rx="8" fill="url(#accentGradient)"/>
+
+  <!-- D curved part - using path for smooth curve -->
+  <path d="M105 49H165C200.899 49 230 78.1015 230 114V188C230 223.899 200.899 253 165 253H105V209H165C176.598 209 186 199.598 186 188V114C186 102.402 176.598 93 165 93H105V49Z" fill="url(#accentGradient2)"/>
+
+  <!-- Accent dot/element -->
+  <circle cx="230" cy="72" r="18" fill="#a855f7" opacity="0.8"/>
 </svg>
