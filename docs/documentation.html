@@ -692,6 +692,233 @@
       color: white;
     }
 
+    /* Motion Section Styles */
+    .docs__motion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__motion-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      transition: border-color var(--duration-fast);
+    }
+
+    .docs__motion-card:hover {
+      border-color: var(--accent);
+    }
+
+    .docs__motion-demo {
+      height: 60px;
+      background: var(--bg);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .docs__motion-ball {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      transition-property: left;
+      transition-timing-function: var(--ease-out);
+    }
+
+    .docs__motion-card[data-duration="fast"] .docs__motion-ball {
+      transition-duration: 150ms;
+    }
+    .docs__motion-card[data-duration="base"] .docs__motion-ball {
+      transition-duration: 250ms;
+    }
+    .docs__motion-card[data-duration="slow"] .docs__motion-ball {
+      transition-duration: 400ms;
+    }
+    .docs__motion-card[data-duration="slower"] .docs__motion-ball {
+      transition-duration: 600ms;
+    }
+
+    .docs__motion-card:hover .docs__motion-ball {
+      left: calc(100% - 34px);
+    }
+
+    .docs__motion-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    /* Easing Section */
+    .docs__easing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__easing-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      transition: border-color var(--duration-fast);
+    }
+
+    .docs__easing-card:hover {
+      border-color: var(--accent);
+    }
+
+    .docs__easing-demo {
+      height: 80px;
+      background: var(--bg);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .docs__easing-curve {
+      position: absolute;
+      inset: 10px;
+      opacity: 0.3;
+    }
+
+    .docs__easing-ball {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      transition: left 600ms;
+      z-index: 1;
+    }
+
+    .docs__easing-card[data-easing="ease-out"] .docs__easing-ball {
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .docs__easing-card[data-easing="ease-in"] .docs__easing-ball {
+      transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+    }
+    .docs__easing-card[data-easing="ease-in-out"] .docs__easing-ball {
+      transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    .docs__easing-card[data-easing="spring"] .docs__easing-ball {
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .docs__easing-card:hover .docs__easing-ball {
+      left: calc(100% - 30px);
+    }
+
+    .docs__easing-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .docs__easing-use {
+      font-size: 0.75rem;
+      color: var(--fg-subtle);
+      font-style: italic;
+    }
+
+    /* Animation Showcase */
+    .docs__animation-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .docs__animation-trigger {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: border-color var(--duration-fast);
+      width: 100%;
+    }
+
+    .docs__animation-trigger:hover {
+      border-color: var(--accent);
+    }
+
+    .docs__animation-box {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: var(--radius-md);
+      transition: opacity 0.01ms, transform 0.01ms;
+    }
+
+    .docs__animation-trigger:hover .docs__animation-box {
+      animation-duration: 400ms;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      animation-fill-mode: both;
+    }
+
+    .docs__animation-trigger[data-anim="fade-in"]:hover .docs__animation-box {
+      animation-name: demoFadeIn;
+    }
+    .docs__animation-trigger[data-anim="scale-in"]:hover .docs__animation-box {
+      animation-name: demoScaleIn;
+    }
+    .docs__animation-trigger[data-anim="slide-up"]:hover .docs__animation-box {
+      animation-name: demoSlideUp;
+    }
+    .docs__animation-trigger[data-anim="slide-left"]:hover .docs__animation-box {
+      animation-name: demoSlideLeft;
+    }
+
+    @keyframes demoFadeIn {
+      0% { opacity: 0; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes demoScaleIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes demoSlideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      50% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes demoSlideLeft {
+      0% { opacity: 0; transform: translateX(20px); }
+      50% { opacity: 0; transform: translateX(20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .docs__animation-name {
+      font-size: 0.8rem;
+      color: var(--fg-muted);
+      text-align: center;
+    }
+
     /* Simple Footer for Docs */
     .docs-footer {
       margin-top: var(--space-4xl);
@@ -912,6 +1139,7 @@
             <a href="#typography" class="docs__nav-link">Typography</a>
             <a href="#spacing" class="docs__nav-link">Spacing</a>
             <a href="#effects" class="docs__nav-link">Effects</a>
+            <a href="#motion" class="docs__nav-link">Motion</a>
           </div>
 
           <div class="docs__nav-section">
@@ -1540,6 +1768,284 @@
 
   <span class="token-comment">/* Stronger blur for glass effects */</span>
   <span class="token-attr">--blur-lg</span>: <span class="token-string">blur(20px)</span>;
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== MOTION ========== -->
+        <section class="docs__section" id="motion">
+          <header class="docs__section-header">
+            <span class="docs__section-tag">Design Tokens</span>
+            <h2 class="docs__section-title">Motion</h2>
+            <p class="docs__section-desc">
+              Animation tokens for consistent, performant transitions across your UI.
+              Built with CSS animations for smooth enter/exit states and micro-interactions.
+            </p>
+          </header>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Duration Tokens</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Consistent timing values for animations and transitions. Faster durations for micro-interactions, slower for emphasis.
+            </p>
+            <div class="docs__motion-grid">
+              <div class="docs__motion-card" data-duration="fast">
+                <div class="docs__motion-demo">
+                  <div class="docs__motion-ball"></div>
+                </div>
+                <div class="docs__motion-info">
+                  <span class="docs__effect-label">--duration-fast</span>
+                  <code class="docs__inline-code">150ms</code>
+                </div>
+              </div>
+              <div class="docs__motion-card" data-duration="base">
+                <div class="docs__motion-demo">
+                  <div class="docs__motion-ball"></div>
+                </div>
+                <div class="docs__motion-info">
+                  <span class="docs__effect-label">--duration-base</span>
+                  <code class="docs__inline-code">250ms</code>
+                </div>
+              </div>
+              <div class="docs__motion-card" data-duration="slow">
+                <div class="docs__motion-demo">
+                  <div class="docs__motion-ball"></div>
+                </div>
+                <div class="docs__motion-info">
+                  <span class="docs__effect-label">--duration-slow</span>
+                  <code class="docs__inline-code">400ms</code>
+                </div>
+              </div>
+              <div class="docs__motion-card" data-duration="slower">
+                <div class="docs__motion-demo">
+                  <div class="docs__motion-ball"></div>
+                </div>
+                <div class="docs__motion-info">
+                  <span class="docs__effect-label">--duration-slower</span>
+                  <code class="docs__inline-code">600ms</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Easing Functions</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Natural motion curves that feel responsive and polished. Each easing serves a specific purpose.
+            </p>
+            <div class="docs__easing-grid">
+              <div class="docs__easing-card" data-easing="ease-out">
+                <div class="docs__easing-demo">
+                  <div class="docs__easing-ball"></div>
+                  <svg class="docs__easing-curve" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,100 C30,100 60,0 100,0" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="docs__easing-info">
+                  <span class="docs__effect-label">--ease-out</span>
+                  <code class="docs__inline-code">cubic-bezier(0.16, 1, 0.3, 1)</code>
+                  <span class="docs__easing-use">Enter animations</span>
+                </div>
+              </div>
+              <div class="docs__easing-card" data-easing="ease-in">
+                <div class="docs__easing-demo">
+                  <div class="docs__easing-ball"></div>
+                  <svg class="docs__easing-curve" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,100 C40,100 70,0 100,0" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="docs__easing-info">
+                  <span class="docs__effect-label">--ease-in</span>
+                  <code class="docs__inline-code">cubic-bezier(0.7, 0, 0.84, 0)</code>
+                  <span class="docs__easing-use">Exit animations</span>
+                </div>
+              </div>
+              <div class="docs__easing-card" data-easing="ease-in-out">
+                <div class="docs__easing-demo">
+                  <div class="docs__easing-ball"></div>
+                  <svg class="docs__easing-curve" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,100 C30,100 70,0 100,0" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="docs__easing-info">
+                  <span class="docs__effect-label">--ease-in-out</span>
+                  <code class="docs__inline-code">cubic-bezier(0.65, 0, 0.35, 1)</code>
+                  <span class="docs__easing-use">State changes</span>
+                </div>
+              </div>
+              <div class="docs__easing-card" data-easing="spring">
+                <div class="docs__easing-demo">
+                  <div class="docs__easing-ball"></div>
+                  <svg class="docs__easing-curve" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,100 C20,100 40,-20 60,10 C80,40 90,0 100,0" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="docs__easing-info">
+                  <span class="docs__effect-label">--ease-spring</span>
+                  <code class="docs__inline-code">cubic-bezier(0.34, 1.56, 0.64, 1)</code>
+                  <span class="docs__easing-use">Bouncy interactions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Keyframe Animations</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Pre-built animations for common patterns. Use with <code class="docs__inline-code">data-state</code> attributes for enter/exit states.
+            </p>
+
+            <div class="docs__animation-showcase">
+              <div class="docs__animation-item">
+                <button class="docs__animation-trigger" data-anim="fade-in">
+                  <span class="docs__animation-box"></span>
+                  <span class="docs__animation-name">fade-in / fade-out</span>
+                </button>
+              </div>
+              <div class="docs__animation-item">
+                <button class="docs__animation-trigger" data-anim="scale-in">
+                  <span class="docs__animation-box"></span>
+                  <span class="docs__animation-name">scale-in / scale-out</span>
+                </button>
+              </div>
+              <div class="docs__animation-item">
+                <button class="docs__animation-trigger" data-anim="slide-up">
+                  <span class="docs__animation-box"></span>
+                  <span class="docs__animation-name">slide-up / slide-down</span>
+                </button>
+              </div>
+              <div class="docs__animation-item">
+                <button class="docs__animation-trigger" data-anim="slide-left">
+                  <span class="docs__animation-box"></span>
+                  <span class="docs__animation-name">slide-left / slide-right</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Pre-built keyframe animations */</span>
+<span class="token-keyword">@keyframes</span> <span class="token-function">fade-in</span> {
+  <span class="token-tag">from</span> { <span class="token-attr">opacity</span>: <span class="token-string">0</span>; }
+  <span class="token-tag">to</span> { <span class="token-attr">opacity</span>: <span class="token-string">1</span>; }
+}
+
+<span class="token-keyword">@keyframes</span> <span class="token-function">scale-in</span> {
+  <span class="token-tag">from</span> { <span class="token-attr">opacity</span>: <span class="token-string">0</span>; <span class="token-attr">transform</span>: <span class="token-string">scale(0.95)</span>; }
+  <span class="token-tag">to</span> { <span class="token-attr">opacity</span>: <span class="token-string">1</span>; <span class="token-attr">transform</span>: <span class="token-string">scale(1)</span>; }
+}
+
+<span class="token-keyword">@keyframes</span> <span class="token-function">slide-up</span> {
+  <span class="token-tag">from</span> { <span class="token-attr">opacity</span>: <span class="token-string">0</span>; <span class="token-attr">transform</span>: <span class="token-string">translateY(10px)</span>; }
+  <span class="token-tag">to</span> { <span class="token-attr">opacity</span>: <span class="token-string">1</span>; <span class="token-attr">transform</span>: <span class="token-string">translateY(0)</span>; }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Enter & Exit States</h3>
+            <p style="color: var(--fg-muted); margin-bottom: var(--space-md); line-height: 1.6;">
+              Use <code class="docs__inline-code">data-state</code> attributes to animate components on mount and unmount.
+            </p>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Enter animation when data-state="open" */</span>
+<span class="token-tag">.modal[data-state="open"]</span> {
+  <span class="token-attr">animation</span>: <span class="token-string">fade-in var(--duration-base) var(--ease-out)</span>;
+}
+
+<span class="token-comment">/* Exit animation when data-state="closed" */</span>
+<span class="token-tag">.modal[data-state="closed"]</span> {
+  <span class="token-attr">animation</span>: <span class="token-string">fade-out var(--duration-fast) var(--ease-in)</span>;
+}
+
+<span class="token-comment">/* Compose multiple animations */</span>
+<span class="token-tag">.popover[data-state="open"]</span> {
+  <span class="token-attr">animation-name</span>: <span class="token-string">fade-in, scale-in</span>;
+  <span class="token-attr">animation-duration</span>: <span class="token-string">var(--duration-base)</span>;
+  <span class="token-attr">animation-timing-function</span>: <span class="token-string">var(--ease-out)</span>;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Reduced Motion</h3>
+
+            <div class="docs__alert docs__alert--warning" role="alert">
+              <svg class="docs__alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+              <div class="docs__alert-content">
+                <p class="docs__alert-title">Accessibility First</p>
+                <p>Always respect <code class="docs__inline-code">prefers-reduced-motion</code>. Users with vestibular disorders may experience discomfort from animations.</p>
+              </div>
+            </div>
+
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Disable animations for users who prefer reduced motion */</span>
+<span class="token-keyword">@media</span> (prefers-reduced-motion: reduce) {
+  <span class="token-tag">*</span>,
+  <span class="token-tag">*::before</span>,
+  <span class="token-tag">*::after</span> {
+    <span class="token-attr">animation-duration</span>: <span class="token-string">0.01ms !important</span>;
+    <span class="token-attr">animation-iteration-count</span>: <span class="token-string">1 !important</span>;
+    <span class="token-attr">transition-duration</span>: <span class="token-string">0.01ms !important</span>;
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="docs__subsection">
+            <h3 class="docs__subsection-title">Customizing Motion</h3>
+            <div class="docs__code-block">
+              <div class="docs__code-header">
+                <span class="docs__code-lang">css</span>
+                <button class="docs__code-copy" type="button" aria-label="Copy code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <pre class="docs__code-content"><code><span class="token-comment">/* Override motion tokens for your brand */</span>
+<span class="token-tag">:root</span> {
+  <span class="token-comment">/* Faster, snappier feel */</span>
+  <span class="token-attr">--duration-fast</span>: <span class="token-string">100ms</span>;
+  <span class="token-attr">--duration-base</span>: <span class="token-string">200ms</span>;
+
+  <span class="token-comment">/* Custom easing for playful brand */</span>
+  <span class="token-attr">--ease-out</span>: <span class="token-string">cubic-bezier(0.34, 1.56, 0.64, 1)</span>;
 }</code></pre>
             </div>
           </div>
