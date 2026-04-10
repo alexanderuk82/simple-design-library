@@ -1,0 +1,340 @@
+{
+  "01 Primitives": {
+    "color": {
+      "green": {
+        "50": {
+          "value": "#e7f8f0",
+          "type": "color"
+        },
+        "200": {
+          "value": "#c3f8cc",
+          "type": "color"
+        },
+        "400": {
+          "value": "#55dd7c",
+          "type": "color"
+        },
+        "500": {
+          "value": "#25d366",
+          "type": "color"
+        },
+        "600": {
+          "value": "#00a884",
+          "type": "color"
+        },
+        "700": {
+          "value": "#128c7e",
+          "type": "color"
+        }
+      },
+      "teal": {
+        "400": {
+          "value": "#308175",
+          "type": "color"
+        },
+        "500": {
+          "value": "#075e54",
+          "type": "color"
+        },
+        "600": {
+          "value": "#12332a",
+          "type": "color"
+        }
+      },
+      "neutral": {
+        "0": {
+          "value": "#07090d",
+          "type": "color"
+        },
+        "50": {
+          "value": "#0b0f16",
+          "type": "color"
+        },
+        "100": {
+          "value": "#0f151e",
+          "type": "color"
+        },
+        "150": {
+          "value": "#e7f8f0",
+          "type": "color"
+        },
+        "200": {
+          "value": "#182030",
+          "type": "color"
+        },
+        "300": {
+          "value": "#141c20",
+          "type": "color"
+        },
+        "400": {
+          "value": "#3e5568",
+          "type": "color"
+        },
+        "500": {
+          "value": "#333c41",
+          "type": "color"
+        },
+        "600": {
+          "value": "#667781",
+          "type": "color"
+        },
+        "700": {
+          "value": "#111b21",
+          "type": "color"
+        },
+        "810": {
+          "value": "#f0f2f5",
+          "type": "color"
+        },
+        "820": {
+          "value": "#ffffff",
+          "type": "color"
+        },
+        "830": {
+          "value": "#e9edef",
+          "type": "color"
+        },
+        "900": {
+          "value": "#d8eaf5",
+          "type": "color"
+        },
+        "950": {
+          "value": "#eaeff4",
+          "type": "color"
+        },
+        "1000": {
+          "value": "#ffffff",
+          "type": "color"
+        }
+      },
+      "red": {
+        "500": {
+          "value": "#ea4335",
+          "type": "color"
+        }
+      },
+      "blue": {
+        "300": {
+          "value": "#34b7f1",
+          "type": "color"
+        }
+      }
+    },
+    "font": {
+      "family": {
+        "display": {
+          "value": "Syne",
+          "type": "string"
+        },
+        "body": {
+          "value": "DM Sans",
+          "type": "string"
+        }
+      },
+      "size": {
+        "xs": {
+          "value": 12,
+          "type": "float"
+        },
+        "sm": {
+          "value": 14,
+          "type": "float"
+        },
+        "base": {
+          "value": 16,
+          "type": "float"
+        },
+        "lg": {
+          "value": 18,
+          "type": "float"
+        },
+        "xl": {
+          "value": 20,
+          "type": "float"
+        },
+        "2xl": {
+          "value": 24,
+          "type": "float"
+        },
+        "3xl": {
+          "value": 30,
+          "type": "float"
+        },
+        "4xl": {
+          "value": 36,
+          "type": "float"
+        },
+        "5xl": {
+          "value": 48,
+          "type": "float"
+        },
+        "6xl": {
+          "value": 60,
+          "type": "float"
+        }
+      },
+      "weight": {
+        "light": {
+          "value": 300,
+          "type": "float"
+        },
+        "regular": {
+          "value": 400,
+          "type": "float"
+        },
+        "medium": {
+          "value": 500,
+          "type": "float"
+        },
+        "semibold": {
+          "value": 600,
+          "type": "float"
+        },
+        "bold": {
+          "value": 700,
+          "type": "float"
+        },
+        "extrabold": {
+          "value": 800,
+          "type": "float"
+        }
+      },
+      "line-height": {
+        "tight": {
+          "value": 1.2000000476837158,
+          "type": "float"
+        },
+        "snug": {
+          "value": 1.399999976158142,
+          "type": "float"
+        },
+        "normal": {
+          "value": 1.5,
+          "type": "float"
+        },
+        "relaxed": {
+          "value": 1.600000023841858,
+          "type": "float"
+        },
+        "loose": {
+          "value": 1.7799999713897705,
+          "type": "float"
+        }
+      },
+      "letter-spacing": {
+        "tighter": {
+          "value": -4,
+          "type": "float"
+        },
+        "tight": {
+          "value": -3,
+          "type": "float"
+        },
+        "normal": {
+          "value": 0,
+          "type": "float"
+        },
+        "wide": {
+          "value": 1,
+          "type": "float"
+        },
+        "wider": {
+          "value": 8,
+          "type": "float"
+        },
+        "widest": {
+          "value": 16,
+          "type": "float"
+        }
+      }
+    },
+    "spacing": {
+      "0": {
+        "value": 0,
+        "type": "float"
+      },
+      "1": {
+        "value": 4,
+        "type": "float"
+      },
+      "2": {
+        "value": 8,
+        "type": "float"
+      },
+      "3": {
+        "value": 12,
+        "type": "float"
+      },
+      "4": {
+        "value": 16,
+        "type": "float"
+      },
+      "5": {
+        "value": 20,
+        "type": "float"
+      },
+      "6": {
+        "value": 24,
+        "type": "float"
+      },
+      "8": {
+        "value": 32,
+        "type": "float"
+      },
+      "10": {
+        "value": 40,
+        "type": "float"
+      },
+      "12": {
+        "value": 48,
+        "type": "float"
+      },
+      "16": {
+        "value": 64,
+        "type": "float"
+      },
+      "20": {
+        "value": 80,
+        "type": "float"
+      },
+      "24": {
+        "value": 96,
+        "type": "float"
+      }
+    },
+    "radius": {
+      "none": {
+        "value": 0,
+        "type": "float"
+      },
+      "xs": {
+        "value": 6,
+        "type": "float"
+      },
+      "sm": {
+        "value": 9,
+        "type": "float"
+      },
+      "md": {
+        "value": 10,
+        "type": "float"
+      },
+      "lg": {
+        "value": 16,
+        "type": "float"
+      },
+      "xl": {
+        "value": 20,
+        "type": "float"
+      },
+      "full": {
+        "value": 9999,
+        "type": "float"
+      },
+      "2xl": {
+        "value": 24,
+        "type": "float"
+      }
+    }
+  }
+}
