@@ -1,0 +1,26 @@
+<svg width="302" height="302" viewBox="0 0 302 302" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="302" height="302" rx="40" fill="#1F1F1F"/>
+
+  <!-- D Letter - Modern geometric style with gradient accent -->
+  <defs>
+    <linearGradient id="accentGradient" x1="83" y1="49" x2="219" y2="253" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="accentGradient2" x1="151" y1="49" x2="219" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- D vertical bar -->
+  <rect x="83" y="49" width="44" height="204" rx="8" fill="url(#accentGradient)"/>
+
+  <!-- D curved part - using path for smooth curve -->
+  <path d="M105 49H165C200.899 49 230 78.1015 230 114V188C230 223.899 200.899 253 165 253H105V209H165C176.598 209 186 199.598 186 188V114C186 102.402 176.598 93 165 93H105V49Z" fill="url(#accentGradient2)"/>
+
+  <!-- Accent dot/element -->
+  <circle cx="230" cy="72" r="18" fill="#a855f7" opacity="0.8"/>
+</svg>
